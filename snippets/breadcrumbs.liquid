@@ -1,0 +1,7 @@
+<nav class="crumbs" aria-label="Breadcrumb">
+  <a href="{{ routes.root_url }}">{{ 'general.home' | t }}</a>
+  {%- if collection and template contains 'product' -%}<span>/</span><a href="{{ collection.url }}">{{ collection.title }}</a>{%- endif -%}
+  {%- if template contains 'product' -%}<span>/</span><span aria-current="page">{{ product.title }}</span>
+  {%- elsif template contains 'collection' -%}<span>/</span><span aria-current="page">{{ collection.title }}</span>
+  {%- elsif template contains 'article' -%}<span>/</span><a href="{{ blog.url }}">{{ blog.title }}</a><span>/</span><span aria-current="page">{{ article.title }}</span>{%- endif -%}
+</nav>

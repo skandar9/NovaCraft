@@ -1,0 +1,45 @@
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-about">
+      <h2 class="footer-title">{{ shop.name }}</h2>
+      {%- if section.settings.about != blank -%}<p>{{ section.settings.about }}</p>{%- endif -%}
+      <div class="social">
+        {%- assign social_list = 'instagram,facebook,tiktok,pinterest,youtube,whatsapp' | split: ',' -%}
+        {%- for s in social_list -%}
+          {%- assign key = 'social_' | append: s -%}
+          {%- if settings[key] != blank -%}<a href="{{ settings[key] }}" target="_blank" rel="noopener">{{ s | capitalize }}</a>{%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+    {%- if section.settings.menu_1 != blank -%}
+    <nav class="footer-links" aria-label="Footer 1"><h2 class="footer-title">{{ section.settings.menu_1_title }}</h2><ul>{%- for link in linklists[section.settings.menu_1].links -%}<li><a href="{{ link.url }}">{{ link.title }}</a></li>{%- endfor -%}</ul></nav>
+    {%- endif -%}
+    {%- if section.settings.menu_2 != blank -%}
+    <nav class="footer-links" aria-label="Footer 2"><h2 class="footer-title">{{ section.settings.menu_2_title }}</h2><ul>{%- for link in linklists[section.settings.menu_2].links -%}<li><a href="{{ link.url }}">{{ link.title }}</a></li>{%- endfor -%}</ul></nav>
+    {%- endif -%}
+    <div class="footer-news">
+      <h2 class="footer-title">{{ 'general.newsletter' | t }}</h2>
+      {%- form 'customer', class: 'news-form' -%}
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        {%- if form.posted_successfully? -%}<p class="ok">{{ 'general.subscribed' | t }}</p>{%- endif -%}
+        {{ form.errors | default_errors }}
+        <div class="inline-field"><input type="email" name="contact[email]" placeholder="{{ 'general.email_placeholder' | t }}" aria-label="{{ 'customer.email' | t }}" required><button class="btn" type="submit">{{ 'general.subscribe' | t }}</button></div>
+      {%- endform -%}
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <small>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}</small>
+    {%- if section.settings.show_payment -%}<div class="pay">{%- for type in shop.enabled_payment_types -%}{{ type | payment_type_svg_tag: class: 'pay-icon' }}{%- endfor -%}</div>{%- endif -%}
+    <ul class="policies">{%- for policy in shop.policies -%}<li><a href="{{ policy.url }}">{{ policy.title }}</a></li>{%- endfor -%}</ul>
+  </div>
+</footer>
+{% schema %}
+{"name":"Footer","settings":[
+  {"type":"textarea","id":"about","label":"About text","default":"Every piece is made by hand, one at a time."},
+  {"type":"text","id":"menu_1_title","label":"Menu 1 heading","default":"Shop"},
+  {"type":"link_list","id":"menu_1","label":"Menu 1","default":"footer"},
+  {"type":"text","id":"menu_2_title","label":"Menu 2 heading","default":"Help"},
+  {"type":"link_list","id":"menu_2","label":"Menu 2"},
+  {"type":"checkbox","id":"show_payment","label":"Show payment icons","default":true}
+]}
+{% endschema %}

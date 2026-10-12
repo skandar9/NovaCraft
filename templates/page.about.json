@@ -1,0 +1,158 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "story": {
+      "type": "image-with-text",
+      "settings": {
+        "art": "1",
+"heading": "About us",
+"text": "<p><strong>Made by hand, made to last.</strong></p><p>NovaCraft is a small studio making ceramics, candles, textiles and jewelry by hand. Every piece in our shop is shaped, poured, woven or strung one at a time, in small batches, by people who care how it turns out.</p><p>We started because we wanted things for our own homes that felt personal: a mug that fits your hand, a candle that smells like a place you love, a basket you keep for years. Factory-made pieces rarely feel that way, so we decided to make them ourselves.</p><p>Today we work with a small circle of makers, and every item is checked, finished and packed by hand before it ships to you.</p>",
+        "button_label": "Shop the collection",
+        "button_link": "/collections/all"
+      }
+    },
+    "materials": {
+      "type": "image-with-text",
+      "settings": {
+        "art": "5",
+        "reverse": true,
+        "heading": "Honest materials, natural variation",
+        "text": "<p>We use materials we trust: stoneware clay, soy wax, cotton and wool yarn, natural wood and glass. If we would not use it in our own homes, it does not go in the shop.</p><p>Because everything is handmade, small differences in color, shape and texture are part of each piece. No two are exactly alike, and we think that is the point.</p>"
+      }
+    },
+    "values": {
+      "type": "benefits",
+      "settings": {
+        "bg": "soft"
+      },
+      "blocks": {
+        "b1": {
+          "type": "item",
+          "settings": {
+            "icon": "leaf",
+            "title": "Honest materials",
+            "text": "Clay, wax, cotton, wood and glass."
+          }
+        },
+        "b2": {
+          "type": "item",
+          "settings": {
+            "icon": "heart",
+            "title": "Small batches",
+            "text": "Fewer pieces, made properly."
+          }
+        },
+        "b3": {
+          "type": "item",
+          "settings": {
+            "icon": "gift",
+            "title": "Gift ready",
+            "text": "Wrapped by hand on request."
+          }
+        },
+        "b4": {
+          "type": "item",
+          "settings": {
+            "icon": "refresh",
+            "title": "Made to last",
+            "text": "Easy returns within 14 days."
+          }
+        }
+      },
+      "block_order": ["b1", "b2", "b3", "b4"]
+    },
+    "belief": {
+      "type": "story-stats",
+      "settings": {
+        "art": "4",
+        "heading": "What we believe",
+        "text": "<p>Good things take time. We would rather make fewer pieces and make them well than fill shelves with things nobody keeps.</p><p>That is why we keep our batches small, finish every piece by hand, and stand behind everything we sell.</p>",
+        "button_label": "Get in touch",
+        "button_link": "/pages/contact"
+      },
+      "blocks": {
+        "b1": {
+          "type": "stat",
+          "settings": {
+            "number": 100,
+            "suffix": "%",
+            "label": "Handmade"
+          }
+        },
+        "b2": {
+          "type": "stat",
+          "settings": {
+            "number": 2,
+            "suffix": " days",
+            "label": "To ship your order"
+          }
+        },
+        "b3": {
+          "type": "stat",
+          "settings": {
+            "number": 14,
+            "suffix": " days",
+            "label": "Easy returns"
+          }
+        }
+      },
+      "block_order": ["b1", "b2", "b3"]
+    },
+    "process": {
+      "type": "process",
+      "settings": {
+        "heading": "How it's made"
+      },
+      "blocks": {
+        "b1": {
+          "type": "step",
+          "settings": {
+            "title": "Design",
+            "text": "Each piece starts as a sketch and a small test batch."
+          }
+        },
+        "b2": {
+          "type": "step",
+          "settings": {
+            "title": "Make",
+            "text": "Shaped, poured, woven or strung by hand in our studio."
+          }
+        },
+        "b3": {
+          "type": "step",
+          "settings": {
+            "title": "Finish",
+            "text": "Every item is checked and finished one by one."
+          }
+        },
+        "b4": {
+          "type": "step",
+          "settings": {
+            "title": "Ship",
+            "text": "Packed with care and sent to your door within 2 business days."
+          }
+        }
+      },
+      "block_order": ["b1", "b2", "b3", "b4"]
+    },
+    "closing": {
+      "type": "rich-text",
+      "settings": {
+        "heading": "Questions? We would love to hear from you",
+        "text": "<p>We read every message. Write to us and we will reply within one business day.</p>",
+        "button_label": "Contact us",
+        "button_link": "/pages/contact",
+        "align": "center"
+      }
+    }
+  },
+  "order": ["story", "materials", "values", "belief", "process", "closing"]
+}

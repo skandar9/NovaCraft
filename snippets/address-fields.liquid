@@ -1,0 +1,19 @@
+<label for="a-fn-{{ uid }}">{{ 'customer.first_name' | t }}</label>
+<input id="a-fn-{{ uid }}" type="text" name="address[first_name]" value="{{ address.first_name }}" autocomplete="given-name">
+<label for="a-ln-{{ uid }}">{{ 'customer.last_name' | t }}</label>
+<input id="a-ln-{{ uid }}" type="text" name="address[last_name]" value="{{ address.last_name }}" autocomplete="family-name">
+<label for="a-a1-{{ uid }}">{{ 'customer.address1' | t }}</label>
+<input id="a-a1-{{ uid }}" type="text" name="address[address1]" value="{{ address.address1 }}" autocomplete="address-line1">
+<label for="a-a2-{{ uid }}">{{ 'customer.address2' | t }}</label>
+<input id="a-a2-{{ uid }}" type="text" name="address[address2]" value="{{ address.address2 }}" autocomplete="address-line2">
+<label for="a-city-{{ uid }}">{{ 'customer.city' | t }}</label>
+<input id="a-city-{{ uid }}" type="text" name="address[city]" value="{{ address.city }}" autocomplete="address-level2">
+<label for="a-country-{{ uid }}">{{ 'customer.country' | t }}</label>
+<select id="a-country-{{ uid }}" name="address[country]" autocomplete="country">{{ all_country_option_tags }}</select>
+<label for="a-prov-{{ uid }}">{{ 'customer.province' | t }}</label>
+<input id="a-prov-{{ uid }}" type="text" name="address[province]" value="{{ address.province }}" autocomplete="address-level1">
+<label for="a-zip-{{ uid }}">{{ 'customer.zip' | t }}</label>
+<input id="a-zip-{{ uid }}" type="text" name="address[zip]" value="{{ address.zip }}" autocomplete="postal-code">
+<label for="a-phone-{{ uid }}">{{ 'contact.phone' | t }}</label>
+<input id="a-phone-{{ uid }}" type="tel" name="address[phone]" value="{{ address.phone }}" autocomplete="tel">
+<label class="check"><input type="checkbox" name="address[default]" value="1"> {{ 'customer.set_default' | t }}</label>

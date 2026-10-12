@@ -1,0 +1,24 @@
+{%- if section.blocks.size > 0 -%}
+<div class="announce" data-announce>
+  <div class="container announce-inner">
+    <div class="announce-msgs">
+      {%- for block in section.blocks -%}
+        <p class="announce-msg{% if forloop.first %} is-active{% endif %}" {{ block.shopify_attributes }}>
+          {%- if block.settings.link != blank -%}<a href="{{ block.settings.link }}">{{ block.settings.text }}</a>{%- else -%}{{ block.settings.text }}{%- endif -%}
+          {%- if block.settings.countdown != blank -%}<span class="cd-inline" data-countdown="{{ block.settings.countdown }}" data-inline></span>{%- endif -%}
+        </p>
+      {%- endfor -%}
+    </div>
+    {%- if section.settings.dismiss -%}<button type="button" class="announce-close" data-announce-close aria-label="{{ 'general.close' | t }}">{% render 'icon', name: 'close', size: 16 %}</button>{%- endif -%}
+  </div>
+</div>
+{%- endif -%}
+{% schema %}
+{"name":"Announcement bar",
+ "settings":[{"type":"checkbox","id":"dismiss","label":"Allow closing","default":true}],
+ "blocks":[{"type":"message","name":"Message","settings":[
+   {"type":"text","id":"text","label":"Text","default":"Free shipping on orders over 200"},
+   {"type":"url","id":"link","label":"Link"},
+   {"type":"text","id":"countdown","label":"Countdown end (YYYY-MM-DD HH:MM)","info":"Optional, shows a live timer"}]}],
+ "default":{"blocks":[{"type":"message","settings":{"text":"Free shipping on orders over 200"}},{"type":"message","settings":{"text":"Handmade in small batches"}}]}}
+{% endschema %}

@@ -1,0 +1,21 @@
+{%- paginate blog.articles by 9 -%}
+<section class="container section">
+  <header class="page-head"><h1>{{ blog.title }}</h1></header>
+  {%- if blog.all_tags.size > 0 -%}
+    <div class="chips"><a class="chip{% unless current_tags %} active{% endunless %}" href="{{ blog.url }}">{{ 'general.all' | t }}</a>{%- for tag in blog.all_tags -%}<a class="chip{% if current_tags contains tag %} active{% endif %}" href="{{ blog.url }}/tagged/{{ tag | handleize }}">{{ tag }}</a>{%- endfor -%}</div>
+  {%- endif -%}
+  {%- if blog.articles.size == 0 -%}<p class="center">{{ 'blog.empty' | t }}</p>{%- endif -%}
+  <div class="grid grid-3">
+    {%- for article in blog.articles -%}
+      <article class="card">
+        <a class="card-media" href="{{ article.url }}">{%- if article.image -%}{{ article.image | image_url: width: 800 | image_tag: loading: 'lazy', alt: article.image.alt | default: article.title }}{%- else -%}{% render 'art', v: forloop.index %}{%- endif -%}</a>
+        <div class="card-info"><p class="muted">{{ article.published_at | time_tag: '%Y-%m-%d' }}</p><h3 class="card-title"><a href="{{ article.url }}">{{ article.title }}</a></h3><p>{{ article.excerpt_or_content | strip_html | truncatewords: 28 }}</p></div>
+      </article>
+    {%- endfor -%}
+  </div>
+  {% render 'pagination', paginate: paginate %}
+</section>
+{%- endpaginate -%}
+{% schema %}
+{"name":"Blog"}
+{% endschema %}

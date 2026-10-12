@@ -1,0 +1,58 @@
+{%- assign thr = settings.free_shipping_threshold | default: 0 | times: 100 -%}
+<section class="container section cart">
+  <header class="page-head"><h1>{{ 'cart.title' | t }}</h1></header>
+  {%- if cart.item_count == 0 -%}
+    <div class="center"><p>{{ 'cart.empty' | t }}</p><a class="btn" href="{{ routes.all_products_collection_url }}">{{ 'cart.continue' | t }}</a></div>
+  {%- else -%}
+  {%- if thr > 0 -%}
+    {%- assign remaining = thr | minus: cart.total_price -%}
+    <div class="fsbar">
+      <p>{%- if remaining > 0 -%}{%- assign rem_money = remaining | money -%}{{ 'cart.free_left' | t: amount: rem_money }}{%- else -%}{{ 'cart.free_done' | t }}{%- endif -%}</p>
+      <div class="fsbar-track"><span style="width:{{ cart.total_price | times: 100 | divided_by: thr | at_most: 100 }}%"></span></div>
+    </div>
+  {%- endif -%}
+  <form action="{{ routes.cart_url }}" method="post" id="cart-form">
+    <div class="table-wrap"><table class="cart-table">
+      <thead><tr><th>{{ 'cart.product' | t }}</th><th>{{ 'cart.price' | t }}</th><th>{{ 'product.quantity' | t }}</th><th>{{ 'cart.total' | t }}</th></tr></thead>
+      <tbody>
+      {%- for item in cart.items -%}
+        <tr>
+          <td class="ci"><div class="ci-media">{%- if item.image -%}{{ item.image | image_url: width: 200 | image_tag: loading: 'lazy', alt: item.image.alt }}{%- endif -%}</div>
+            <div><a href="{{ item.url }}">{{ item.product.title }}</a>
+              {%- unless item.product.has_only_default_variant -%}<small class="muted">{{ item.variant.title }}</small>{%- endunless -%}
+              {%- for a in item.line_level_discount_allocations -%}<small class="disc">{{ a.discount_application.title }} (-{{ a.amount | money }})</small>{%- endfor -%}
+              <a class="remove" href="{{ item.url_to_remove }}">{{ 'cart.remove' | t }}</a></div></td>
+          <td>{%- if item.original_price != item.final_price -%}<s class="muted">{{ item.original_price | money }}</s> {%- endif -%}{{ item.final_price | money }}</td>
+          <td><input class="qty-input" type="number" name="updates[]" value="{{ item.quantity }}" min="0" aria-label="{{ 'product.quantity' | t }}" data-auto-click="[name=update]"></td>
+          <td>{%- if item.original_line_price != item.final_line_price -%}<s class="muted">{{ item.original_line_price | money }}</s> {%- endif -%}{{ item.final_line_price | money }}</td>
+        </tr>
+      {%- endfor -%}
+      </tbody>
+    </table></div>
+    <div class="cart-foot">
+      <div class="cart-extra">
+        {%- if settings.show_gift_wrap -%}<label class="check gift"><input type="hidden" name="attributes[Gift wrap]" value=""><input type="checkbox" name="attributes[Gift wrap]" value="Yes" {% if cart.attributes['Gift wrap'] == 'Yes' %}checked{% endif %}> {{ settings.gift_wrap_text }}</label>{%- endif -%}
+        {%- if settings.show_cart_note -%}<label for="note">{{ 'cart.note' | t }}</label><textarea name="note" id="note" rows="3">{{ cart.note }}</textarea>{%- endif -%}
+      </div>
+      <div class="cart-total">
+        {%- for d in cart.cart_level_discount_applications -%}<p class="disc-line"><span>{{ d.title }}</span><span>-{{ d.total_allocated_amount | money }}</span></p>{%- endfor -%}
+        {%- if cart.total_discount > 0 -%}<p class="disc-line"><span>{{ 'cart.you_save' | t }}</span><span>{{ cart.total_discount | money }}</span></p>{%- endif -%}
+        <p class="subtotal"><span>{{ 'cart.subtotal' | t }}</span> <strong>{{ cart.total_price | money }}</strong></p>
+        <p class="muted">{{ 'cart.taxes' | t }}</p>
+        <button type="submit" name="update" class="btn btn-ghost">{{ 'cart.update' | t }}</button>
+        <button type="submit" name="checkout" class="btn btn-block">{{ 'cart.checkout' | t }}</button>
+      </div>
+    </div>
+  </form>
+  {%- if settings.show_discount_field -%}
+    <form class="code-form" data-discount-form data-base="{{ routes.root_url }}discount/" data-redirect="{{ routes.cart_url }}">
+      <label for="dcode">{{ 'cart.discount_code' | t }}</label>
+      <div class="inline-field"><input id="dcode" name="code" type="text" autocomplete="off"><button type="submit" class="btn btn-ghost">{{ 'cart.apply' | t }}</button></div>
+    </form>
+  {%- endif -%}
+  {%- if settings.show_cart_upsell -%}<div class="upsell" data-upsell="{{ cart.items.first.product_id }}" hidden><h2>{{ 'cart.upsell' | t }}</h2><div class="pgrid" data-upsell-list></div></div>{%- endif -%}
+  {%- endif -%}
+</section>
+{% schema %}
+{"name":"Cart page"}
+{% endschema %}

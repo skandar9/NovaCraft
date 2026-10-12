@@ -1,0 +1,11 @@
+{%- assign col = section.settings.collection | default: collections.all -%}
+<section class="section container bg-{{ section.settings.bg }}">
+  <div class="section-head"><h2>{{ section.settings.heading }}</h2><a class="link-more" href="{{ col.url }}">{{ 'general.view_all' | t }}</a></div>
+  <div class="pgrid{% if section.settings.carousel %} pcarousel{% endif %}">
+    {%- for product in col.products limit: section.settings.limit -%}{% render 'product-card', product: product %}
+    {%- else -%}{%- for i in (1..4) -%}<div class="card"><div class="card-media">{% render 'art', v: i %}</div><div class="card-info"><h3 class="card-title">{{ 'general.sample_product' | t }}</h3></div></div>{%- endfor -%}{%- endfor -%}
+  </div>
+</section>
+{% schema %}
+{"name": "Featured collection", "settings": [{"type": "text", "id": "heading", "label": "Heading", "default": "Featured pieces"}, {"type": "collection", "id": "collection", "label": "Collection"}, {"type": "range", "id": "limit", "min": 2, "max": 16, "step": 1, "label": "Products", "default": 8}, {"type": "checkbox", "id": "carousel", "label": "Scrollable row", "default": false}, {"type": "select", "id": "bg", "label": "Background", "default": "default", "options": [{"value": "default", "label": "Default"}, {"value": "soft", "label": "Soft gray"}, {"value": "dark", "label": "Dark"}, {"value": "accent", "label": "Turquoise"}]}], "presets": [{"name": "Featured collection"}]}
+{% endschema %}

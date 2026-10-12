@@ -1,0 +1,422 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero": {
+      "type": "hero-slider",
+      "blocks": {
+        "b1": {
+          "type": "slide",
+          "settings": {
+            "art": "1",
+            "heading": "Handmade, one piece at a time",
+            "text": "Ceramics, textiles and home pieces made in small batches.",
+            "button_label": "Shop now",
+            "badge": "Handmade"
+          }
+        },
+        "b2": {
+          "type": "slide",
+          "settings": {
+            "art": "2",
+            "heading": "New: the home collection",
+            "text": "Vases, candles and baskets to make a house feel lived in.",
+            "button_label": "Shop home",
+            "badge": "New in"
+          }
+        },
+        "b3": {
+          "type": "slide",
+          "settings": {
+            "art": "4",
+            "heading": "Gifts with a story",
+            "text": "Every piece is signed by the maker who made it.",
+            "button_label": "Shop gifts",
+            "badge": "Gift ready"
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3"
+      ],
+      "settings": {
+        "autoplay": 6
+      }
+    },
+    "strip": {
+      "type": "marquee",
+      "blocks": {
+        "b1": {
+          "type": "item",
+          "settings": {
+            "text": "Handmade in small batches"
+          }
+        },
+        "b2": {
+          "type": "item",
+          "settings": {
+            "text": "Free shipping over 200"
+          }
+        },
+        "b3": {
+          "type": "item",
+          "settings": {
+            "text": "Gift wrapping available"
+          }
+        },
+        "b4": {
+          "type": "item",
+          "settings": {
+            "text": "Made to last"
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3",
+        "b4"
+      ],
+      "settings": {
+        "bg": "accent"
+      }
+    },
+    "categories": {
+      "type": "category-tiles",
+      "blocks": {
+        "b1": {
+          "type": "category",
+          "settings": {
+            "title": "Ceramics",
+            "art": "1"
+          }
+        },
+        "b2": {
+          "type": "category",
+          "settings": {
+            "title": "Home",
+            "art": "2"
+          }
+        },
+        "b3": {
+          "type": "category",
+          "settings": {
+            "title": "Candles",
+            "art": "3"
+          }
+        },
+        "b4": {
+          "type": "category",
+          "settings": {
+            "title": "Textiles",
+            "art": "4"
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3",
+        "b4"
+      ],
+      "settings": {
+        "heading": "Shop by category"
+      }
+    },
+    "products": {
+      "type": "product-tabs",
+      "blocks": {
+        "b1": {
+          "type": "tab",
+          "settings": {
+            "title": "Bestsellers"
+          }
+        },
+        "b2": {
+          "type": "tab",
+          "settings": {
+            "title": "New in"
+          }
+        },
+        "b3": {
+          "type": "tab",
+          "settings": {
+            "title": "Gifts"
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3"
+      ],
+      "settings": {
+        "heading": "Our favorites",
+        "limit": 8
+      }
+    },
+    "promo": {
+      "type": "promo-banner",
+      "settings": {
+        "bg": "dark",
+        "heading": "Weekend sale: 20% off",
+        "text": "Use the code at checkout. Automatic discounts also show in your cart.",
+        "code": "CRAFT20",
+        "button_label": "Shop the sale",
+        "art": "3"
+      }
+    },
+    "story": {
+      "type": "story-stats",
+      "blocks": {
+        "b1": {
+          "type": "stat",
+          "settings": {
+            "number": 100,
+            "suffix": "%",
+            "label": "Handmade"
+          }
+        },
+        "b2": {
+          "type": "stat",
+          "settings": {
+            "number": 40,
+            "suffix": "+",
+            "label": "Makers"
+          }
+        },
+        "b3": {
+          "type": "stat",
+          "settings": {
+            "number": 5000,
+            "suffix": "+",
+            "label": "Happy customers"
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3"
+      ],
+      "settings": {
+        "art": "4",
+        "heading": "Made slowly, made well",
+        "text": "<p>Every piece starts as raw material and ends in the hands of someone who made it with care. No factories, no shortcuts.</p>",
+        "button_label": "About us",
+        "button_link": "/pages/about",
+        "bg": "soft"
+      }
+    },
+    "benefits": {
+      "type": "benefits",
+      "blocks": {
+        "b1": {
+          "type": "item",
+          "settings": {
+            "icon": "truck",
+            "title": "Free shipping",
+            "text": "On orders over 200"
+          }
+        },
+        "b2": {
+          "type": "item",
+          "settings": {
+            "icon": "shield",
+            "title": "Secure checkout",
+            "text": "Cards, wallets and more"
+          }
+        },
+        "b3": {
+          "type": "item",
+          "settings": {
+            "icon": "refresh",
+            "title": "Easy returns",
+            "text": "Within 14 days"
+          }
+        },
+        "b4": {
+          "type": "item",
+          "settings": {
+            "icon": "gift",
+            "title": "Gift wrapping",
+            "text": "Add it in your cart"
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3",
+        "b4"
+      ],
+      "settings": {}
+    },
+    "gallery": {
+      "type": "gallery",
+      "blocks": {
+        "b1": {
+          "type": "tile",
+          "settings": {
+            "art": "1",
+            "caption": "Fresh from the kiln"
+          }
+        },
+        "b2": {
+          "type": "tile",
+          "settings": {
+            "art": "2",
+            "caption": "New vases"
+          }
+        },
+        "b3": {
+          "type": "tile",
+          "settings": {
+            "art": "4",
+            "caption": "Woven by hand"
+          }
+        },
+        "b4": {
+          "type": "tile",
+          "settings": {
+            "art": "3",
+            "caption": "Poured candles"
+          }
+        },
+        "b5": {
+          "type": "tile",
+          "settings": {
+            "art": "5",
+            "caption": "Baskets"
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3",
+        "b4",
+        "b5"
+      ],
+      "settings": {
+        "heading": "In the studio",
+        "link_label": "Follow along"
+      }
+    },
+    "reviews": {
+      "type": "testimonials",
+      "blocks": {
+        "b1": {
+          "type": "quote",
+          "settings": {
+            "quote": "The mug is even prettier in person. I use it every morning.",
+            "author": "Layla"
+          }
+        },
+        "b2": {
+          "type": "quote",
+          "settings": {
+            "quote": "Arrived beautifully wrapped. I ordered three more as gifts.",
+            "author": "Omar"
+          }
+        },
+        "b3": {
+          "type": "quote",
+          "settings": {
+            "quote": "You can feel that someone really made this by hand.",
+            "author": "Dana"
+          }
+        },
+        "b4": {
+          "type": "quote",
+          "settings": {
+            "quote": "Fast shipping and lovely packaging. Will order again.",
+            "author": "Sara"
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3",
+        "b4"
+      ],
+      "settings": {
+        "heading": "Kind words",
+        "bg": "dark"
+      }
+    },
+    "faq": {
+      "type": "faq",
+      "blocks": {
+        "b1": {
+          "type": "item",
+          "settings": {
+            "question": "How long does shipping take?",
+            "answer": "Orders ship within 2 business days. Delivery usually takes 2 to 7 days depending on your location."
+          }
+        },
+        "b2": {
+          "type": "item",
+          "settings": {
+            "question": "Can I send an order as a gift?",
+            "answer": "Yes. Add gift wrapping and a note in your cart."
+          }
+        },
+        "b3": {
+          "type": "item",
+          "settings": {
+            "question": "Are the pieces really handmade?",
+            "answer": "Yes. Small variations are part of what makes each piece unique."
+          }
+        },
+        "b4": {
+          "type": "item",
+          "settings": {
+            "question": "What is your return policy?",
+            "answer": "If something arrives damaged or isn't right, contact us within 14 days."
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3",
+        "b4"
+      ],
+      "settings": {
+        "heading": "Questions, answered"
+      }
+    },
+    "news": {
+      "type": "newsletter",
+      "settings": {
+        "heading": "Get 10% off your first order",
+        "text": "Join the list for new pieces and offers.",
+        "bg": "accent"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "strip",
+    "categories",
+    "products",
+    "promo",
+    "story",
+    "benefits",
+    "gallery",
+    "reviews",
+    "faq",
+    "news"
+  ]
+}

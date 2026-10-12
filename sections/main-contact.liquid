@@ -1,0 +1,20 @@
+<section class="container section narrow">
+  <header class="page-head"><h1>{{ page.title }}</h1></header>
+  <div class="rte">{{ page.content }}</div>
+  {%- form 'contact', class: 'form' -%}
+    {%- if form.posted_successfully? -%}<p class="ok">{{ 'contact.success' | t }}</p>{%- endif -%}
+    {{ form.errors | default_errors }}
+    <label for="c-name">{{ 'contact.name' | t }}</label>
+    <input id="c-name" type="text" name="contact[name]" value="{{ form.name }}" autocomplete="name">
+    <label for="c-email">{{ 'customer.email' | t }}</label>
+    <input id="c-email" type="email" name="contact[email]" value="{{ form.email }}" autocomplete="email" required>
+    <label for="c-phone">{{ 'contact.phone' | t }}</label>
+    <input id="c-phone" type="tel" name="contact[phone]" value="{{ form.phone }}" autocomplete="tel">
+    <label for="c-body">{{ 'contact.message' | t }}</label>
+    <textarea id="c-body" name="contact[body]" rows="6" required>{{ form.body }}</textarea>
+    <button class="btn" type="submit">{{ 'contact.send' | t }}</button>
+  {%- endform -%}
+</section>
+{% schema %}
+{"name":"Contact form"}
+{% endschema %}

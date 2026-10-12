@@ -1,0 +1,14 @@
+<section class="section container bg-{{ section.settings.bg }}">
+  <div class="section-head"><h2>{{ section.settings.heading }}</h2>{%- if settings.social_instagram != blank -%}<a class="link-more" href="{{ settings.social_instagram }}" target="_blank" rel="noopener">{{ section.settings.link_label }}</a>{%- endif -%}</div>
+  <div class="gallery">
+    {%- for block in section.blocks -%}
+      <figure class="g-item g-{{ forloop.index }}" {{ block.shopify_attributes }}>
+        {%- if block.settings.image != blank -%}{{ block.settings.image | image_url: width: 800 | image_tag: loading: 'lazy', alt: block.settings.caption }}{%- else -%}{% render 'art', v: block.settings.art, label: block.settings.caption %}{%- endif -%}
+        {%- if block.settings.caption != blank -%}<figcaption>{{ block.settings.caption }}</figcaption>{%- endif -%}
+      </figure>
+    {%- endfor -%}
+  </div>
+</section>
+{% schema %}
+{"name": "Gallery", "settings": [{"type": "text", "id": "heading", "label": "Heading", "default": "In the studio"}, {"type": "text", "id": "link_label", "label": "Social link text", "default": "Follow along"}, {"type": "select", "id": "bg", "label": "Background", "default": "default", "options": [{"value": "default", "label": "Default"}, {"value": "soft", "label": "Soft gray"}, {"value": "dark", "label": "Dark"}, {"value": "accent", "label": "Turquoise"}]}], "blocks": [{"type": "tile", "name": "Tile", "settings": [{"type": "image_picker", "id": "image", "label": "Photo (optional)"}, {"type": "select", "id": "art", "label": "Illustration if no photo", "default": "1", "options": [{"value": "1", "label": "Mug"}, {"value": "2", "label": "Vase"}, {"value": "3", "label": "Candle"}, {"value": "4", "label": "Woven textile"}, {"value": "5", "label": "Basket"}]}, {"type": "text", "id": "caption", "label": "Caption"}]}], "max_blocks": 6, "presets": [{"name": "Gallery", "blocks": [{"type": "tile", "settings": {"art": "1", "caption": "Fresh from the kiln"}}, {"type": "tile", "settings": {"art": "2", "caption": "New vases"}}, {"type": "tile", "settings": {"art": "4", "caption": "Woven by hand"}}, {"type": "tile", "settings": {"art": "3", "caption": "Poured candles"}}, {"type": "tile", "settings": {"art": "5", "caption": "Baskets"}}]}]}
+{% endschema %}

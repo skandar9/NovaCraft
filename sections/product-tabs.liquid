@@ -1,0 +1,18 @@
+<section class="section container bg-{{ section.settings.bg }}" data-tabs>
+  <div class="section-head">
+    <h2>{{ section.settings.heading }}</h2>
+    {%- if section.blocks.size > 1 -%}
+    <div class="tab-list" role="tablist">{%- for block in section.blocks -%}<button type="button" role="tab" class="tab-btn{% if forloop.first %} is-active{% endif %}" data-tab="{{ forloop.index0 }}" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}">{{ block.settings.title }}</button>{%- endfor -%}</div>
+    {%- endif -%}
+  </div>
+  {%- for block in section.blocks -%}
+    {%- assign col = block.settings.collection | default: collections.all -%}
+    <div class="tab-panel{% if forloop.first %} is-active{% endif %}" data-panel="{{ forloop.index0 }}" role="tabpanel" {{ block.shopify_attributes }}>
+      <div class="pgrid">{%- for product in col.products limit: section.settings.limit -%}{% render 'product-card', product: product %}{%- else -%}<p class="muted">{{ 'collection.empty' | t }}</p>{%- endfor -%}</div>
+      <p class="center more"><a class="btn btn-ghost" href="{{ col.url }}">{{ 'general.view_all' | t }}</a></p>
+    </div>
+  {%- endfor -%}
+</section>
+{% schema %}
+{"name": "Product tabs", "settings": [{"type": "text", "id": "heading", "label": "Heading", "default": "Our favorites"}, {"type": "range", "id": "limit", "min": 4, "max": 12, "step": 4, "label": "Products per tab", "default": 8}, {"type": "select", "id": "bg", "label": "Background", "default": "default", "options": [{"value": "default", "label": "Default"}, {"value": "soft", "label": "Soft gray"}, {"value": "dark", "label": "Dark"}, {"value": "accent", "label": "Turquoise"}]}], "blocks": [{"type": "tab", "name": "Tab", "settings": [{"type": "text", "id": "title", "label": "Tab title", "default": "Bestsellers"}, {"type": "collection", "id": "collection", "label": "Collection"}]}], "max_blocks": 4, "presets": [{"name": "Product tabs", "blocks": [{"type": "tab", "settings": {"title": "Bestsellers"}}, {"type": "tab", "settings": {"title": "New in"}}, {"type": "tab", "settings": {"title": "Gifts"}}]}]}
+{% endschema %}

@@ -1,0 +1,14 @@
+<section class="section container split bg-{{ section.settings.bg }} {% if section.settings.reverse %}reverse{% endif %}">
+  <div class="split-media">
+    {%- if section.settings.image != blank -%}{{ section.settings.image | image_url: width: 1100 | image_tag: loading: 'lazy', sizes: '(min-width:750px) 50vw, 100vw', alt: section.settings.image.alt }}
+    {%- else -%}{% render 'art', v: section.settings.art %}{%- endif -%}
+  </div>
+  <div class="split-text">
+    {%- if section.settings.heading != blank -%}<h2>{{ section.settings.heading }}</h2>{%- endif -%}
+    <div class="rte">{{ section.settings.text }}</div>
+    {%- if section.settings.button_label != blank -%}<a class="btn" href="{{ section.settings.button_link }}">{{ section.settings.button_label }}</a>{%- endif -%}
+  </div>
+</section>
+{% schema %}
+{"name": "Image with text", "settings": [{"type": "image_picker", "id": "image", "label": "Image"}, {"type": "select", "id": "art", "label": "Illustration if no image", "default": "1", "options": [{"value": "1", "label": "Mug"}, {"value": "2", "label": "Vase"}, {"value": "3", "label": "Candle"}, {"value": "4", "label": "Woven textile"}, {"value": "5", "label": "Basket"}]}, {"type": "checkbox", "id": "reverse", "label": "Image on the other side", "default": false}, {"type": "text", "id": "heading", "label": "Heading", "default": "Our story"}, {"type": "richtext", "id": "text", "label": "Text", "default": "<p>Tell customers who makes your pieces, where, and why.</p>"}, {"type": "text", "id": "button_label", "label": "Button label"}, {"type": "url", "id": "button_link", "label": "Button link"}, {"type": "select", "id": "bg", "label": "Background", "default": "default", "options": [{"value": "default", "label": "Default"}, {"value": "soft", "label": "Soft gray"}, {"value": "dark", "label": "Dark"}, {"value": "accent", "label": "Turquoise"}]}], "presets": [{"name": "Image with text"}]}
+{% endschema %}

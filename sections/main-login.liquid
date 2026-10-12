@@ -1,0 +1,29 @@
+<section class="container section narrow">
+  <header class="page-head"><h1>{{ 'customer.login' | t }}</h1></header>
+  <div id="login-box">
+    {%- form 'customer_login', class: 'form' -%}
+      {{ form.errors | default_errors }}
+      <label for="l-email">{{ 'customer.email' | t }}</label>
+      <input id="l-email" type="email" name="customer[email]" autocomplete="email" required>
+      <label for="l-pass">{{ 'customer.password' | t }}</label>
+      <input id="l-pass" type="password" name="customer[password]" autocomplete="current-password" required>
+      <button class="btn btn-block" type="submit">{{ 'customer.sign_in' | t }}</button>
+      <p><a href="#recover" data-toggle="recover-box">{{ 'customer.forgot' | t }}</a></p>
+    {%- endform -%}
+  </div>
+  <div id="recover-box" {% unless form.posted_successfully? %}hidden{% endunless %}>
+    {%- form 'recover_customer_password', class: 'form' -%}
+      {{ form.errors | default_errors }}
+      {%- if form.posted_successfully? -%}<p class="ok">{{ 'customer.reset_sent' | t }}</p>{%- endif -%}
+      <h2>{{ 'customer.reset_title' | t }}</h2>
+      <label for="r-email">{{ 'customer.email' | t }}</label>
+      <input id="r-email" type="email" name="email" required>
+      <button class="btn" type="submit">{{ 'customer.submit' | t }}</button>
+    {%- endform -%}
+  </div>
+  <p class="center">{{ 'customer.new_here' | t }} <a href="{{ routes.account_register_url }}">{{ 'customer.create_account' | t }}</a></p>
+  <p class="center"><a href="{{ routes.all_products_collection_url }}">{{ 'customer.guest' | t }}</a></p>
+</section>
+{% schema %}
+{"name":"Login"}
+{% endschema %}

@@ -1,0 +1,75 @@
+[
+  {"name": "theme_info", "theme_name": "Craft Studio", "theme_version": "2.0.0", "theme_author": "Custom", "theme_documentation_url": "https://help.shopify.com/en/manual/online-store/themes", "theme_support_url": "https://help.shopify.com/en/support"},
+  {"name":"Colors","settings":[
+    {"type":"color","id":"color_bg","label":"Background","default":"#f6f7f8"},
+    {"type":"color","id":"color_text","label":"Text","default":"#1e2528"},
+    {"type":"color","id":"color_accent","label":"Accent (buttons, links)","default":"#0b8a82"},
+    {"type":"color","id":"color_accent_text","label":"Text on accent","default":"#ffffff"},
+    {"type":"color","id":"color_aqua","label":"Bright turquoise (highlights)","default":"#35d0c0"},
+    {"type":"color","id":"color_soft","label":"Soft gray background","default":"#e8ecee"},
+    {"type":"color","id":"color_border","label":"Borders","default":"#d5dbde"},
+    {"type":"color","id":"color_deep","label":"Dark sections","default":"#1e2528"},
+    {"type":"color","id":"color_sale","label":"Sale / discount color","default":"#d6336c"}
+  ]},
+  {"name":"Typography","settings":[
+    {"type":"font_picker","id":"font_heading","label":"Heading font (Latin)","default":"poppins_n6"},
+    {"type":"font_picker","id":"font_body","label":"Body font (Latin)","default":"inter_n4"},
+    {"type":"select","id":"arabic_heading","label":"Heading font (Arabic)","default":"Cairo","options":[{"value":"Cairo","label":"Cairo"},{"value":"Tajawal","label":"Tajawal"},{"value":"Almarai","label":"Almarai"},{"value":"Amiri","label":"Amiri"},{"value":"IBM Plex Sans Arabic","label":"IBM Plex Sans Arabic"},{"value":"Noto Naskh Arabic","label":"Noto Naskh Arabic"},{"value":"El Messiri","label":"El Messiri"},{"value":"Readex Pro","label":"Readex Pro"},{"value":"Changa","label":"Changa"},{"value":"Lalezar","label":"Lalezar"}]},
+    {"type":"select","id":"arabic_body","label":"Body font (Arabic)","default":"Tajawal","options":[{"value":"Cairo","label":"Cairo"},{"value":"Tajawal","label":"Tajawal"},{"value":"Almarai","label":"Almarai"},{"value":"Amiri","label":"Amiri"},{"value":"IBM Plex Sans Arabic","label":"IBM Plex Sans Arabic"},{"value":"Noto Naskh Arabic","label":"Noto Naskh Arabic"},{"value":"El Messiri","label":"El Messiri"},{"value":"Readex Pro","label":"Readex Pro"},{"value":"Changa","label":"Changa"},{"value":"Lalezar","label":"Lalezar"}]},
+    {"type":"range","id":"base_size","label":"Base text size","default":16,"min":14,"max":19,"step":1,"unit":"px"},
+    {"type":"range","id":"heading_scale","label":"Heading size","default":100,"min":80,"max":130,"step":5,"unit":"%"},
+    {"type":"checkbox","id":"heading_upper","label":"Uppercase headings","default":false}
+  ]},
+  {"name":"Layout & style","settings":[
+    {"type":"range","id":"page_width","label":"Page width","default":1350,"min":1000,"max":1800,"step":50,"unit":"px"},
+    {"type":"range","id":"radius","label":"Corner radius","default":12,"min":0,"max":28,"step":2,"unit":"px"},
+    {"type":"checkbox","id":"btn_pill","label":"Pill-shaped buttons","default":true},
+    {"type":"select","id":"spacing","label":"Section spacing","default":"medium","options":[{"value":"small","label":"Small"},{"value":"medium","label":"Medium"},{"value":"large","label":"Large"}]},
+    {"type":"select","id":"cols_desktop","label":"Product columns (desktop)","default":"4","options":[{"value":"3","label":"3"},{"value":"4","label":"4"},{"value":"5","label":"5"}]},
+    {"type":"select","id":"cols_mobile","label":"Product columns (mobile)","default":"2","options":[{"value":"1","label":"1"},{"value":"2","label":"2"}]},
+    {"type":"select","id":"card_ratio","label":"Product image shape","default":"4/5","options":[{"value":"1/1","label":"Square"},{"value":"4/5","label":"Portrait"},{"value":"2/3","label":"Tall"},{"value":"4/3","label":"Landscape"}]}
+  ]},
+  {"name":"Header & navigation","settings":[
+    {"type":"checkbox","id":"sticky_header","label":"Sticky header","default":true},
+    {"type":"checkbox","id":"show_wishlist","label":"Show wishlist icon","default":true},
+    {"type":"checkbox","id":"show_language","label":"Language selector","default":true},
+    {"type":"checkbox","id":"show_country","label":"Country / currency selector","default":true},
+    {"type":"select","id":"cart_type","label":"Cart behavior","default":"drawer","options":[{"value":"drawer","label":"Slide-out drawer"},{"value":"page","label":"Cart page"}]}
+  ]},
+  {"name":"Product cards","settings":[
+    {"type":"checkbox","id":"show_vendor","label":"Show vendor","default":false},
+    {"type":"checkbox","id":"show_quick_add","label":"Quick add button","default":true},
+    {"type":"checkbox","id":"show_second_image","label":"Show second image on hover","default":true},
+    {"type":"checkbox","id":"show_badges","label":"Show badges (sale, new, sold out, tag badges)","default":true},
+    {"type":"checkbox","id":"show_rating","label":"Show star rating (Shopify reviews metafield)","default":true},
+    {"type":"checkbox","id":"show_wishlist_btn","label":"Wishlist heart on cards","default":true},
+    {"type":"range","id":"new_days","label":"Mark as New for (days, 0 = off)","default":30,"min":0,"max":90,"step":5},
+    {"type":"paragraph","content":"Tip: add a product tag like badge:Bestseller to show a custom badge."}
+  ]},
+  {"name":"Cart & offers","settings":[
+    {"type":"number","id":"free_shipping_threshold","label":"Free shipping bar: amount (0 = off)","default":0,"info":"In your store currency, e.g. 200"},
+    {"type":"checkbox","id":"show_discount_field","label":"Discount code field in cart","default":true},
+    {"type":"checkbox","id":"show_gift_wrap","label":"Gift wrap option in cart","default":true},
+    {"type":"text","id":"gift_wrap_text","label":"Gift wrap label","default":"Add gift wrapping"},
+    {"type":"checkbox","id":"show_cart_note","label":"Order note in cart","default":true},
+    {"type":"checkbox","id":"show_cart_upsell","label":"'You may also like' in cart","default":true}
+  ]},
+  {"name":"Search","settings":[
+    {"type":"checkbox","id":"predictive_search","label":"Live search suggestions","default":true},
+    {"type":"range","id":"search_limit","label":"Suggestions per type","default":4,"min":2,"max":8,"step":1}
+  ]},
+  {"name":"Animations","settings":[
+    {"type":"checkbox","id":"reveal","label":"Scroll reveal animations","default":true}
+  ]},
+  {"name":"Favicon","settings":[
+    {"type":"image_picker","id":"favicon","label":"Favicon (32x32 png)"}
+  ]},
+  {"name":"Social media","settings":[
+    {"type":"url","id":"social_instagram","label":"Instagram"},
+    {"type":"url","id":"social_facebook","label":"Facebook"},
+    {"type":"url","id":"social_tiktok","label":"TikTok"},
+    {"type":"url","id":"social_pinterest","label":"Pinterest"},
+    {"type":"url","id":"social_youtube","label":"YouTube"},
+    {"type":"url","id":"social_whatsapp","label":"WhatsApp (https://wa.me/...)"}
+  ]}
+]

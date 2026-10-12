@@ -1,0 +1,21 @@
+<section class="section bg-{{ section.settings.bg }}">
+  <div class="container">
+    {%- if section.settings.heading != blank -%}<div class="section-head"><h2>{{ section.settings.heading }}</h2></div>{%- endif -%}
+    <div class="tiles">
+      {%- for block in section.blocks -%}
+        {%- assign c = block.settings.collection -%}
+        <a class="tile reveal" href="{{ c.url | default: routes.all_products_collection_url }}" {{ block.shopify_attributes }}>
+          <div class="tile-media">
+            {%- if block.settings.image != blank -%}{{ block.settings.image | image_url: width: 700 | image_tag: loading: 'lazy', alt: c.title }}
+            {%- elsif c.image -%}{{ c.image | image_url: width: 700 | image_tag: loading: 'lazy', alt: c.title }}
+            {%- else -%}{% render 'art', v: block.settings.art, label: block.settings.title %}{%- endif -%}
+          </div>
+          <span class="tile-label">{{ block.settings.title | default: c.title }}<i aria-hidden="true">→</i></span>
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{"name": "Category tiles", "settings": [{"type": "text", "id": "heading", "label": "Heading", "default": "Shop by category"}, {"type": "select", "id": "bg", "label": "Background", "default": "default", "options": [{"value": "default", "label": "Default"}, {"value": "soft", "label": "Soft gray"}, {"value": "dark", "label": "Dark"}, {"value": "accent", "label": "Turquoise"}]}], "blocks": [{"type": "category", "name": "Category", "settings": [{"type": "collection", "id": "collection", "label": "Collection"}, {"type": "text", "id": "title", "label": "Title", "default": "Ceramics"}, {"type": "image_picker", "id": "image", "label": "Photo (optional)"}, {"type": "select", "id": "art", "label": "Illustration if no photo", "default": "1", "options": [{"value": "1", "label": "Mug"}, {"value": "2", "label": "Vase"}, {"value": "3", "label": "Candle"}, {"value": "4", "label": "Woven textile"}, {"value": "5", "label": "Basket"}]}]}], "max_blocks": 6, "presets": [{"name": "Category tiles", "blocks": [{"type": "category", "settings": {"title": "Ceramics", "art": "1"}}, {"type": "category", "settings": {"title": "Home", "art": "2"}}, {"type": "category", "settings": {"title": "Candles", "art": "3"}}, {"type": "category", "settings": {"title": "Textiles", "art": "4"}}]}]}
+{% endschema %}

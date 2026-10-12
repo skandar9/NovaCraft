@@ -1,0 +1,25 @@
+<article class="container section narrow">
+  {% render 'breadcrumbs' %}
+  <header class="page-head"><div><p class="muted">{{ article.published_at | time_tag: '%Y-%m-%d' }}{% if article.author != blank %} · {{ article.author }}{% endif %}</p><h1>{{ article.title }}</h1></div></header>
+  {%- if article.image -%}<div class="article-img">{{ article.image | image_url: width: 1400 | image_tag: loading: 'eager', alt: article.image.alt | default: article.title }}</div>{%- endif -%}
+  <div class="rte">{{ article.content }}</div>
+  <div class="actions-row"><button type="button" class="link-btn" data-share data-title="{{ article.title | escape }}" data-url="{{ shop.url }}{{ article.url }}">{% render 'icon', name: 'share', size: 18 %} <span>{{ 'product.share' | t }}</span></button></div>
+  {%- if blog.comments_enabled? -%}
+    <section class="comments">
+      <h2>{{ 'blog.comments' | t }}</h2>
+      {%- for comment in article.comments -%}<div class="panel"><p><strong>{{ comment.author }}</strong> <span class="muted">{{ comment.created_at | date: '%Y-%m-%d' }}</span></p><p>{{ comment.content }}</p></div>{%- endfor -%}
+      {%- form 'new_comment', article, class: 'form' -%}
+        {%- if form.posted_successfully? -%}<p class="ok">{%- if blog.moderated? -%}{{ 'blog.comment_moderated' | t }}{%- else -%}{{ 'blog.comment_posted' | t }}{%- endif -%}</p>{%- endif -%}
+        {{ form.errors | default_errors }}
+        <label for="cm-a">{{ 'contact.name' | t }}</label><input id="cm-a" name="comment[author]" value="{{ form.author }}" required>
+        <label for="cm-e">{{ 'customer.email' | t }}</label><input id="cm-e" type="email" name="comment[email]" value="{{ form.email }}" required>
+        <label for="cm-b">{{ 'contact.message' | t }}</label><textarea id="cm-b" name="comment[body]" rows="4" required>{{ form.body }}</textarea>
+        <button class="btn" type="submit">{{ 'blog.post_comment' | t }}</button>
+      {%- endform -%}
+    </section>
+  {%- endif -%}
+  <p><a href="{{ blog.url }}">{{ 'blog.back' | t }}</a></p>
+</article>
+{% schema %}
+{"name":"Article"}
+{% endschema %}

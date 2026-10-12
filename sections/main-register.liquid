@@ -1,0 +1,19 @@
+<section class="container section narrow">
+  <header class="page-head"><h1>{{ 'customer.create_account' | t }}</h1></header>
+  {%- form 'create_customer', class: 'form' -%}
+    {{ form.errors | default_errors }}
+    <label for="g-first">{{ 'customer.first_name' | t }}</label>
+    <input id="g-first" type="text" name="customer[first_name]" value="{{ form.first_name }}" autocomplete="given-name">
+    <label for="g-last">{{ 'customer.last_name' | t }}</label>
+    <input id="g-last" type="text" name="customer[last_name]" value="{{ form.last_name }}" autocomplete="family-name">
+    <label for="g-email">{{ 'customer.email' | t }}</label>
+    <input id="g-email" type="email" name="customer[email]" value="{{ form.email }}" autocomplete="email" required>
+    <label for="g-pass">{{ 'customer.password' | t }}</label>
+    <input id="g-pass" type="password" name="customer[password]" autocomplete="new-password" required>
+    <button class="btn btn-block" type="submit">{{ 'customer.create_account' | t }}</button>
+  {%- endform -%}
+  <p class="center"><a href="{{ routes.account_login_url }}">{{ 'customer.login' | t }}</a></p>
+</section>
+{% schema %}
+{"name":"Register"}
+{% endschema %}

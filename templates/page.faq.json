@@ -1,0 +1,42 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+ "sections": {
+  "faq": {
+   "type": "faq",
+   "settings": {
+    "heading": "Frequently asked questions"
+   },
+   "blocks": {
+    "b1": {
+     "type": "item",
+     "settings": {
+      "question": "How long does shipping take?",
+      "answer": "Orders ship within 2 business days."
+     }
+    },
+    "b2": {
+     "type": "item",
+     "settings": {
+      "question": "What is your return policy?",
+      "answer": "Contact us within 14 days."
+     }
+    }
+   },
+   "block_order": [
+    "b1",
+    "b2"
+   ]
+  }
+ },
+ "order": [
+  "faq"
+ ]
+}

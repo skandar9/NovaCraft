@@ -1,0 +1,15 @@
+<section class="section newsletter bg-{{ section.settings.bg }}">
+  <div class="container narrow center">
+    <h2>{{ section.settings.heading }}</h2>
+    {%- if section.settings.text != blank -%}<p>{{ section.settings.text }}</p>{%- endif -%}
+    {%- form 'customer', class: 'news-form' -%}
+      <input type="hidden" name="contact[tags]" value="newsletter">
+      {%- if form.posted_successfully? -%}<p class="ok">{{ 'general.subscribed' | t }}</p>{%- endif -%}
+      {{ form.errors | default_errors }}
+      <div class="inline-field"><input type="email" name="contact[email]" placeholder="{{ 'general.email_placeholder' | t }}" aria-label="{{ 'customer.email' | t }}" required><button class="btn btn-aqua" type="submit">{{ 'general.subscribe' | t }}</button></div>
+    {%- endform -%}
+  </div>
+</section>
+{% schema %}
+{"name": "Newsletter", "settings": [{"type": "text", "id": "heading", "label": "Heading", "default": "Get 10% off your first order"}, {"type": "textarea", "id": "text", "label": "Text", "default": "Join the list for new pieces and offers."}, {"type": "select", "id": "bg", "label": "Background", "default": "default", "options": [{"value": "default", "label": "Default"}, {"value": "soft", "label": "Soft gray"}, {"value": "dark", "label": "Dark"}, {"value": "accent", "label": "Turquoise"}]}], "presets": [{"name": "Newsletter"}]}
+{% endschema %}

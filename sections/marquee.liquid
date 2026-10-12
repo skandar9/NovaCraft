@@ -1,0 +1,12 @@
+<section class="marquee bg-{{ section.settings.bg }}" aria-label="{{ shop.name }}">
+  <div class="marquee-track">
+    {%- for i in (1..2) -%}
+    <ul class="marquee-list"{% if i == 2 %} aria-hidden="true"{% endif %}>{%- for block in section.blocks -%}<li {{ block.shopify_attributes }}>{{ block.settings.text }}</li>{%- endfor -%}</ul>
+    {%- endfor -%}
+  </div>
+</section>
+{% schema %}
+{"name":"Scrolling strip","settings":[{"type":"select","id":"bg","label":"Style","default":"accent","options":[{"value":"accent","label":"Turquoise"},{"value":"dark","label":"Dark"},{"value":"soft","label":"Gray"}]}],
+ "blocks":[{"type":"item","name":"Item","settings":[{"type":"text","id":"text","label":"Text","default":"Handmade in small batches"}]}],
+ "presets":[{"name":"Scrolling strip","blocks":[{"type":"item","settings":{"text":"Handmade in small batches"}},{"type":"item","settings":{"text":"Free shipping over 200"}},{"type":"item","settings":{"text":"Gift wrapping available"}},{"type":"item","settings":{"text":"Made to last"}}]}]}
+{% endschema %}

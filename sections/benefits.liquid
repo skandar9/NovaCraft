@@ -1,0 +1,10 @@
+<section class="section benefits bg-{{ section.settings.bg }}">
+  <div class="container benefits-grid">
+    {%- for block in section.blocks -%}
+      <div class="benefit" {{ block.shopify_attributes }}><span class="benefit-icon">{% render 'icon', name: block.settings.icon, size: 26 %}</span><div><h3>{{ block.settings.title }}</h3><p>{{ block.settings.text }}</p></div></div>
+    {%- endfor -%}
+  </div>
+</section>
+{% schema %}
+{"name": "Benefits", "blocks": [{"type": "item", "name": "Benefit", "settings": [{"type": "select", "id": "icon", "label": "Icon", "default": "truck", "options": [{"value": "truck", "label": "Delivery"}, {"value": "shield", "label": "Secure"}, {"value": "refresh", "label": "Returns"}, {"value": "gift", "label": "Gift"}, {"value": "heart", "label": "Heart"}, {"value": "leaf", "label": "Leaf"}]}, {"type": "text", "id": "title", "label": "Title", "default": "Free shipping"}, {"type": "text", "id": "text", "label": "Text", "default": "On orders over 200"}]}], "max_blocks": 4, "presets": [{"name": "Benefits", "blocks": [{"type": "item", "settings": {"icon": "truck", "title": "Free shipping", "text": "On orders over 200"}}, {"type": "item", "settings": {"icon": "shield", "title": "Secure checkout", "text": "Cards, wallets and more"}}, {"type": "item", "settings": {"icon": "refresh", "title": "Easy returns", "text": "Within 14 days"}}, {"type": "item", "settings": {"icon": "gift", "title": "Gift wrapping", "text": "Add it in your cart"}}]}], "settings": [{"type": "select", "id": "bg", "label": "Background", "default": "default", "options": [{"value": "default", "label": "Default"}, {"value": "soft", "label": "Soft gray"}, {"value": "dark", "label": "Dark"}, {"value": "accent", "label": "Turquoise"}]}]}
+{% endschema %}

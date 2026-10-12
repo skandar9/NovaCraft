@@ -1,0 +1,16 @@
+<section class="section story bg-{{ section.settings.bg }}">
+  <div class="container story-grid">
+    <div class="story-art"><div class="story-frame">
+      {%- if section.settings.image != blank -%}{{ section.settings.image | image_url: width: 1000 | image_tag: loading: 'lazy', alt: section.settings.image.alt }}{%- else -%}{% render 'art', v: section.settings.art, label: section.settings.heading %}{%- endif -%}
+    </div></div>
+    <div class="story-text">
+      <h2>{{ section.settings.heading }}</h2>
+      <div class="rte">{{ section.settings.text }}</div>
+      {%- if section.settings.button_label != blank -%}<a class="btn" href="{{ section.settings.button_link }}">{{ section.settings.button_label }}</a>{%- endif -%}
+      <dl class="stats">{%- for block in section.blocks -%}<div {{ block.shopify_attributes }}><dt data-count="{{ block.settings.number }}" data-suffix="{{ block.settings.suffix }}">{{ block.settings.number }}{{ block.settings.suffix }}</dt><dd>{{ block.settings.label }}</dd></div>{%- endfor -%}</dl>
+    </div>
+  </div>
+</section>
+{% schema %}
+{"name": "Story with numbers", "settings": [{"type": "image_picker", "id": "image", "label": "Photo (optional)"}, {"type": "select", "id": "art", "label": "Illustration if no photo", "default": "4", "options": [{"value": "1", "label": "Mug"}, {"value": "2", "label": "Vase"}, {"value": "3", "label": "Candle"}, {"value": "4", "label": "Woven textile"}, {"value": "5", "label": "Basket"}]}, {"type": "text", "id": "heading", "label": "Heading", "default": "Made slowly, made well"}, {"type": "richtext", "id": "text", "label": "Text", "default": "<p>Every piece starts as raw material and ends in the hands of someone who made it with care. No factories, no shortcuts.</p>"}, {"type": "text", "id": "button_label", "label": "Button label", "default": "About us"}, {"type": "url", "id": "button_link", "label": "Button link"}, {"type": "select", "id": "bg", "label": "Background", "default": "default", "options": [{"value": "default", "label": "Default"}, {"value": "soft", "label": "Soft gray"}, {"value": "dark", "label": "Dark"}, {"value": "accent", "label": "Turquoise"}]}], "blocks": [{"type": "stat", "name": "Number", "settings": [{"type": "number", "id": "number", "label": "Number", "default": 100}, {"type": "text", "id": "suffix", "label": "After the number", "default": "%"}, {"type": "text", "id": "label", "label": "Label", "default": "Handmade"}]}], "max_blocks": 4, "presets": [{"name": "Story with numbers", "blocks": [{"type": "stat", "settings": {"number": 100, "suffix": "%", "label": "Handmade"}}, {"type": "stat", "settings": {"number": 40, "suffix": "+", "label": "Makers"}}, {"type": "stat", "settings": {"number": 5000, "suffix": "+", "label": "Happy customers"}}]}]}
+{% endschema %}

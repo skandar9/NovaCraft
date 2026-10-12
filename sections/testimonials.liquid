@@ -1,0 +1,11 @@
+<section class="section reviews bg-{{ section.settings.bg }}">
+  <div class="container">
+    <div class="section-head"><h2>{{ section.settings.heading }}</h2><div class="hs-arrows"><button type="button" data-scroll-prev aria-label="{{ 'general.previous' | t }}">‹</button><button type="button" data-scroll-next aria-label="{{ 'general.next' | t }}">›</button></div></div>
+    <div class="review-track" data-scroll-track>
+      {%- for block in section.blocks -%}<blockquote class="review" {{ block.shopify_attributes }}><span class="stars" aria-label="5/5">★★★★★</span><p>{{ block.settings.quote }}</p><cite>{{ block.settings.author }}</cite></blockquote>{%- endfor -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{"name": "Testimonials", "settings": [{"type": "text", "id": "heading", "label": "Heading", "default": "Kind words"}, {"type": "select", "id": "bg", "label": "Background", "default": "default", "options": [{"value": "default", "label": "Default"}, {"value": "soft", "label": "Soft gray"}, {"value": "dark", "label": "Dark"}, {"value": "accent", "label": "Turquoise"}]}], "blocks": [{"type": "quote", "name": "Quote", "settings": [{"type": "textarea", "id": "quote", "label": "Quote", "default": "Beautiful, and you can feel the care in it."}, {"type": "text", "id": "author", "label": "Name", "default": "Customer"}]}], "max_blocks": 8, "presets": [{"name": "Testimonials", "blocks": [{"type": "quote", "settings": {"quote": "The mug is even prettier in person. I use it every morning.", "author": "Layla"}}, {"type": "quote", "settings": {"quote": "Arrived beautifully wrapped. I ordered three more as gifts.", "author": "Omar"}}, {"type": "quote", "settings": {"quote": "You can feel that someone really made this by hand.", "author": "Dana"}}, {"type": "quote", "settings": {"quote": "Fast shipping and lovely packaging. Will order again.", "author": "Sara"}}]}]}
+{% endschema %}

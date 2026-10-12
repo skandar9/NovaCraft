@@ -1,0 +1,9 @@
+<section class="section process bg-{{ section.settings.bg }}">
+  <div class="container">
+    <div class="section-head"><h2>{{ section.settings.heading }}</h2></div>
+    <ol class="steps">{%- for block in section.blocks -%}<li class="step reveal" {{ block.shopify_attributes }}><span class="step-n">{{ forloop.index }}</span><h3>{{ block.settings.title }}</h3><p>{{ block.settings.text }}</p></li>{%- endfor -%}</ol>
+  </div>
+</section>
+{% schema %}
+{"name": "Process steps", "settings": [{"type": "text", "id": "heading", "label": "Heading", "default": "How it's made"}, {"type": "select", "id": "bg", "label": "Background", "default": "default", "options": [{"value": "default", "label": "Default"}, {"value": "soft", "label": "Soft gray"}, {"value": "dark", "label": "Dark"}, {"value": "accent", "label": "Turquoise"}]}], "blocks": [{"type": "step", "name": "Step", "settings": [{"type": "text", "id": "title", "label": "Title", "default": "Step"}, {"type": "textarea", "id": "text", "label": "Text", "default": "Describe this step."}]}], "max_blocks": 5, "presets": [{"name": "Process steps", "blocks": [{"type": "step", "settings": {"title": "Design", "text": "Each piece starts as a sketch."}}, {"type": "step", "settings": {"title": "Make", "text": "Shaped by hand in small batches."}}, {"type": "step", "settings": {"title": "Finish", "text": "Checked and finished one by one."}}, {"type": "step", "settings": {"title": "Ship", "text": "Packed with care and sent to you."}}]}]}
+{% endschema %}

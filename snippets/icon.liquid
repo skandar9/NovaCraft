@@ -1,0 +1,18 @@
+{%- capture p -%}
+{%- case name -%}
+  {%- when 'search' -%}<circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/>
+  {%- when 'user' -%}<circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/>
+  {%- when 'cart' -%}<path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 8a3 3 0 0 1 6 0"/>
+  {%- when 'menu' -%}<path d="M4 7h16M4 12h16M4 17h16"/>
+  {%- when 'heart' -%}<path d="M12 20s-7-4.5-9-9a5 5 0 0 1 9-3 5 5 0 0 1 9 3c-2 4.500-9 9-9 9Z"/>
+  {%- when 'close' -%}<path d="M5 5l14 14M19 5 5 19"/>
+  {%- when 'truck' -%}<path d="M3 6h11v10H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/>
+  {%- when 'shield' -%}<path d="M12 3l8 3v6c0 5-3.500 8-8 9-4.500-1-8-4-8-9V6z"/><path d="m9 12 2 2 4-4"/>
+  {%- when 'refresh' -%}<path d="M20 11a8 8 0 0 0-14-4L4 9"/><path d="M4 4v5h5"/><path d="M4 13a8 8 0 0 0 14 4l2-2"/><path d="M20 20v-5h-5"/>
+  {%- when 'gift' -%}<rect x="3" y="9" width="18" height="12" rx="1"/><path d="M12 9v12M3 13h18M12 9C9 9 8 4 11 4s1 5 1 5Zm0 0c3 0 4-5 1-5s-1 5-1 5Z"/>
+  {%- when 'leaf' -%}<path d="M5 19C5 9 11 4 20 4c0 9-5 15-15 15Z"/><path d="M5 19 14 10"/>
+  {%- when 'share' -%}<circle cx="18" cy="5" r="2.500"/><circle cx="6" cy="12" r="2.500"/><circle cx="18" cy="19" r="2.500"/><path d="m8 11 8-5M8 13l8 5"/>
+  {%- when 'filter' -%}<path d="M4 6h16M7 12h10M10 18h4"/>
+{%- endcase -%}
+{%- endcapture -%}
+<svg class="icon" viewBox="0 0 24 24" width="{{ size | default: 22 }}" height="{{ size | default: 22 }}" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{{ p }}</svg>

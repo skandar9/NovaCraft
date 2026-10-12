@@ -1,0 +1,13 @@
+<section class="section video-banner bg-{{ section.settings.bg }}">
+  <div class="container">
+    {%- if section.settings.heading != blank -%}<div class="section-head"><h2>{{ section.settings.heading }}</h2></div>{%- endif -%}
+    <div class="video-wrap">
+      {%- if section.settings.video != blank -%}{{ section.settings.video | video_tag: image_size: '1100x', controls: true, loop: false, muted: false, preload: 'none' }}
+      {%- elsif section.settings.video_url != blank -%}{{ section.settings.video_url | external_video_tag }}
+      {%- else -%}<div class="video-ph">{% render 'art', v: 4 %}</div>{%- endif -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{"name": "Video", "settings": [{"type": "text", "id": "heading", "label": "Heading", "default": "Watch how it's made"}, {"type": "video", "id": "video", "label": "Uploaded video"}, {"type": "video_url", "id": "video_url", "label": "Or YouTube / Vimeo link", "accept": ["youtube", "vimeo"]}, {"type": "select", "id": "bg", "label": "Background", "default": "default", "options": [{"value": "default", "label": "Default"}, {"value": "soft", "label": "Soft gray"}, {"value": "dark", "label": "Dark"}, {"value": "accent", "label": "Turquoise"}]}], "presets": [{"name": "Video"}]}
+{% endschema %}

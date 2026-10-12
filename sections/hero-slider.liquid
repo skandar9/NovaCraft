@@ -1,0 +1,46 @@
+<section class="hs" data-slider data-autoplay="{{ section.settings.autoplay }}">
+  <div class="hs-stage">
+    {%- for block in section.blocks -%}
+      <div class="hs-slide{% if forloop.first %} is-active{% endif %}" {{ block.shopify_attributes }}>
+        <div class="container hs-grid">
+          <div class="hs-text">
+            {%- if forloop.first -%}<h1>{{ block.settings.heading }}</h1>{%- else -%}<h2>{{ block.settings.heading }}</h2>{%- endif -%}
+            <p>{{ block.settings.text }}</p>
+            <div class="hs-actions">
+              {%- if block.settings.button_label != blank -%}<a class="btn btn-aqua" href="{{ block.settings.button_link | default: routes.all_products_collection_url }}">{{ block.settings.button_label }}</a>{%- endif -%}
+              {%- if block.settings.link_label != blank -%}<a class="hs-link" href="{{ block.settings.link_url | default: routes.root_url }}">{{ block.settings.link_label }}</a>{%- endif -%}
+            </div>
+          </div>
+          <div class="hs-art">
+            <div class="hs-frame">
+              {%- if block.settings.image != blank -%}{{ block.settings.image | image_url: width: 1000 | image_tag: loading: 'eager', sizes: '(min-width:750px) 40vw, 80vw', alt: block.settings.image.alt }}
+              {%- else -%}{% render 'art', v: block.settings.art, label: block.settings.heading %}{%- endif -%}
+            </div>
+            {%- if block.settings.badge != blank -%}<span class="hs-badge">{{ block.settings.badge }}</span>{%- endif -%}
+          </div>
+        </div>
+      </div>
+    {%- endfor -%}
+  </div>
+  {%- if section.blocks.size > 1 -%}
+  <div class="hs-controls container">
+    <div class="hs-dots">{%- for block in section.blocks -%}<button type="button" class="hs-dot{% if forloop.first %} is-active{% endif %}" data-dot="{{ forloop.index0 }}" aria-label="{{ forloop.index }}"></button>{%- endfor -%}</div>
+    <div class="hs-arrows"><button type="button" data-prev aria-label="{{ 'general.previous' | t }}">‹</button><button type="button" data-next aria-label="{{ 'general.next' | t }}">›</button></div>
+  </div>
+  {%- endif -%}
+</section>
+{% schema %}
+{"name":"Hero slider","settings":[{"type":"range","id":"autoplay","min":0,"max":10,"step":1,"unit":"s","label":"Autoplay (0 = off)","default":6}],
+ "blocks":[{"type":"slide","name":"Slide","settings":[
+  {"type":"image_picker","id":"image","label":"Photo (leave empty for illustration)"},
+  {"type":"select","id":"art","label":"Illustration if no photo","default":"1","options":[{"value":"1","label":"Mug"},{"value":"2","label":"Vase"},{"value":"3","label":"Candle"},{"value":"4","label":"Woven textile"},{"value":"5","label":"Basket"}]},
+  {"type":"text","id":"heading","label":"Heading","default":"Handmade, one piece at a time"},
+  {"type":"textarea","id":"text","label":"Text","default":"Ceramics, textiles and home pieces made in small batches."},
+  {"type":"text","id":"button_label","label":"Button label","default":"Shop now"},
+  {"type":"url","id":"button_link","label":"Button link"},
+  {"type":"text","id":"link_label","label":"Second link label"},
+  {"type":"url","id":"link_url","label":"Second link"},
+  {"type":"text","id":"badge","label":"Round badge text","default":"Handmade"}]}],
+ "max_blocks":5,
+ "presets":[{"name":"Hero slider","blocks":[{"type":"slide"},{"type":"slide","settings":{"art":"2","heading":"New: the home collection","text":"Vases, candles and baskets to make a house feel lived in.","button_label":"Shop home","badge":"New in"}},{"type":"slide","settings":{"art":"4","heading":"Gifts with a story","text":"Every piece is signed by the maker who made it.","button_label":"Shop gifts","badge":"Gift ready"}}]}]}
+{% endschema %}

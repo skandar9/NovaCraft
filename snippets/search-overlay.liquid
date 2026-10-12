@@ -1,0 +1,14 @@
+<div class="search-overlay" data-search hidden>
+  <div class="search-backdrop" data-search-close></div>
+  <div class="search-panel">
+    <div class="container">
+      <form action="{{ routes.search_url }}" method="get" role="search" class="search-form-lg">
+        <input type="search" name="q" placeholder="{{ 'search.placeholder' | t }}" autocomplete="off" data-search-input aria-label="{{ 'general.search' | t }}">
+        <input type="hidden" name="options[prefix]" value="last">
+        <button class="icon-btn" type="submit" aria-label="{{ 'general.search' | t }}">{% render 'icon', name: 'search' %}</button>
+        <button class="icon-btn" type="button" data-search-close aria-label="{{ 'general.close' | t }}">{% render 'icon', name: 'close' %}</button>
+      </form>
+      <div class="search-results" data-search-results aria-live="polite"></div>
+    </div>
+  </div>
+</div>

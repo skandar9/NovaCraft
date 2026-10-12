@@ -1,0 +1,53 @@
+{%- liquid
+  assign pv = product.selected_or_first_available_variant
+  assign pct = 0
+  if product.compare_at_price > product.price
+    assign pct = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price
+  endif
+  assign is_new = false
+  if settings.new_days > 0 and product.published_at
+    assign now_s = 'now' | date: '%s' | plus: 0
+    assign pub_s = product.published_at | date: '%s' | plus: 0
+    assign age = now_s | minus: pub_s | divided_by: 86400
+    if age <= settings.new_days
+      assign is_new = true
+    endif
+  endif
+  assign rating = product.metafields.reviews.rating.value
+-%}
+<article class="card">
+  <div class="card-media">
+    <a href="{{ product.url }}" class="card-link" aria-label="{{ product.title | escape }}">
+      {%- if product.featured_media -%}
+        {{ product.featured_media | image_url: width: 700 | image_tag: loading: 'lazy', widths: '300, 450, 700', sizes: '(min-width:750px) 25vw, 50vw', alt: product.featured_media.alt }}
+        {%- if settings.show_second_image and product.media[1] -%}<span class="card-hover">{{ product.media[1].preview_image | image_url: width: 700 | image_tag: loading: 'lazy', alt: '' }}</span>{%- endif -%}
+      {%- else -%}
+        {%- assign art_v = product.id | modulo: 5 | plus: 1 -%}
+        {% render 'art', v: art_v, label: product.title %}
+      {%- endif -%}
+    </a>
+    {%- if settings.show_badges -%}
+      <div class="badges">
+        {%- unless product.available -%}<span class="badge">{{ 'general.sold_out' | t }}</span>{%- elsif pct > 0 -%}<span class="badge sale">-{{ pct }}%</span>{%- endunless -%}
+        {%- if product.available and is_new -%}<span class="badge new">{{ 'general.new' | t }}</span>{%- endif -%}
+        {%- for tag in product.tags -%}{%- if tag contains 'badge:' -%}<span class="badge tagb">{{ tag | remove: 'badge:' }}</span>{%- endif -%}{%- endfor -%}
+      </div>
+    {%- endif -%}
+    {%- if settings.show_wishlist_btn -%}
+      <button type="button" class="wish-btn" data-wish="{{ product.handle }}" aria-label="{{ 'wishlist.add' | t }}" aria-pressed="false">{% render 'icon', name: 'heart', size: 20 %}</button>
+    {%- endif -%}
+    {%- if settings.show_quick_add and product.available -%}
+      {%- if product.has_only_default_variant -%}
+        <button type="button" class="quick-add" data-quick-add="{{ pv.id }}">{{ 'product.quick_add' | t }}</button>
+      {%- else -%}
+        <a href="{{ product.url }}" class="quick-add">{{ 'product.choose' | t }}</a>
+      {%- endif -%}
+    {%- endif -%}
+  </div>
+  <div class="card-info">
+    {%- if settings.show_vendor and product.vendor != blank -%}<p class="muted card-vendor">{{ product.vendor }}</p>{%- endif -%}
+    <h3 class="card-title"><a href="{{ product.url }}">{{ product.title }}</a></h3>
+    {%- if settings.show_rating and rating != blank -%}<p class="rating"><span class="stars">★</span> {{ rating.rating | round: 1 }}{% if product.metafields.reviews.rating_count != blank %} <small>({{ product.metafields.reviews.rating_count }})</small>{% endif %}</p>{%- endif -%}
+    {% render 'price', product: product %}
+  </div>
+</article>

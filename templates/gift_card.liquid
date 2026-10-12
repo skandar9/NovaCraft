@@ -1,0 +1,7 @@
+<div class="container section narrow center gift">
+  <h1>{{ 'gift.title' | t }}</h1>
+  <p class="gift-balance">{{ gift_card.balance | money }}</p>
+  {%- if gift_card.enabled == false or gift_card.expired -%}<p class="errors">{{ 'gift.disabled' | t }}</p>{%- endif -%}
+  <p class="gift-code">{{ gift_card.code | format_code }}</p>
+  <p><a class="btn" href="{{ shop.url }}">{{ 'gift.use' | t }}</a> <button type="button" class="btn btn-ghost" onclick="window.print()">{{ 'gift.print' | t }}</button></p>
+</div>

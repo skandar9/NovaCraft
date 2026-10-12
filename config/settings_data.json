@@ -1,0 +1,66 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "current": {
+    "show_country": false,
+    "free_shipping_threshold": 200,
+    "sections": {
+      "announcement-bar": {
+        "type": "announcement-bar",
+        "blocks": {
+          "announcement-bar-0": {
+            "type": "message",
+            "settings": {
+              "text": "Free shipping on orders over 200",
+              "link": "",
+              "countdown": ""
+            }
+          },
+          "announcement-bar-1": {
+            "type": "message",
+            "settings": {
+              "text": "Handmade in small batches",
+              "link": "",
+              "countdown": ""
+            }
+          }
+        },
+        "block_order": [
+          "announcement-bar-0",
+          "announcement-bar-1"
+        ],
+        "settings": {
+          "dismiss": true
+        }
+      },
+      "header": {
+        "type": "header",
+        "settings": {
+          "logo": "shopify://shop_images/novacraft-logo-lightss-bg.png",
+          "logo_width": 170,
+          "menu": "main-menu",
+          "wishlist_page": ""
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {
+          "about": "Every piece is made by hand, one at a time.",
+          "menu_1_title": "Shop",
+          "menu_1": "footer",
+          "menu_2_title": "Help",
+          "menu_2": "",
+          "show_payment": false
+        }
+      }
+    },
+    "content_for_index": []
+  }
+}

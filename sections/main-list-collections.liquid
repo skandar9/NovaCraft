@@ -1,0 +1,14 @@
+{%- paginate collections by 12 -%}
+<section class="container section">
+  <header class="page-head"><h1>{{ 'collection.all' | t }}</h1></header>
+  <div class="tiles">
+    {%- for c in collections -%}
+      <a class="tile" href="{{ c.url }}"><div class="tile-media">{%- if c.image -%}{{ c.image | image_url: width: 800 | image_tag: loading: 'lazy', alt: c.title }}{%- else -%}{% render 'art', v: forloop.index %}{%- endif -%}</div><span class="tile-label">{{ c.title }}<i aria-hidden="true">→</i></span></a>
+    {%- endfor -%}
+  </div>
+  {% render 'pagination', paginate: paginate %}
+</section>
+{%- endpaginate -%}
+{% schema %}
+{"name":"Collections list page"}
+{% endschema %}

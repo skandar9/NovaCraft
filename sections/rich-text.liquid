@@ -1,0 +1,8 @@
+<section class="section container narrow bg-{{ section.settings.bg }} {{ section.settings.align }}">
+  {%- if section.settings.heading != blank -%}<h2>{{ section.settings.heading }}</h2>{%- endif -%}
+  <div class="rte">{{ section.settings.text }}</div>
+  {%- if section.settings.button_label != blank -%}<p><a class="btn" href="{{ section.settings.button_link }}">{{ section.settings.button_label }}</a></p>{%- endif -%}
+</section>
+{% schema %}
+{"name": "Text block", "settings": [{"type": "text", "id": "heading", "label": "Heading", "default": "Our craft"}, {"type": "richtext", "id": "text", "label": "Text", "default": "<p>Share your story here.</p>"}, {"type": "text", "id": "button_label", "label": "Button label"}, {"type": "url", "id": "button_link", "label": "Button link"}, {"type": "select", "id": "align", "label": "Alignment", "default": "center", "options": [{"value": "center", "label": "Center"}, {"value": "start", "label": "Start"}]}, {"type": "select", "id": "bg", "label": "Background", "default": "default", "options": [{"value": "default", "label": "Default"}, {"value": "soft", "label": "Soft gray"}, {"value": "dark", "label": "Dark"}, {"value": "accent", "label": "Turquoise"}]}], "presets": [{"name": "Text block"}]}
+{% endschema %}

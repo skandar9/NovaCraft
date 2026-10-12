@@ -1,0 +1,119 @@
+{%- liquid
+  assign current = product.selected_or_first_available_variant
+  assign pct = 0
+  if current.compare_at_price > current.price
+    assign pct = current.compare_at_price | minus: current.price | times: 100 | divided_by: current.compare_at_price
+  endif
+  assign rating = product.metafields.reviews.rating.value
+-%}
+<section class="container" data-product data-low="{{ section.settings.low_stock }}">
+  {% render 'breadcrumbs' %}
+  <div class="product">
+    <div class="product-gallery" data-gallery>
+      <div class="gallery-main">
+        {%- for media in product.media -%}
+          {%- assign alt = media.alt | default: product.title | escape -%}
+          {%- assign load = 'lazy' -%}{%- if forloop.first -%}{%- assign load = 'eager' -%}{%- endif -%}
+          <div class="gallery-slide{% if forloop.first %} is-active{% endif %}" data-slide="{{ forloop.index0 }}">
+            {%- case media.media_type -%}
+              {%- when 'image' -%}<button type="button" class="zoom" data-zoom="{{ media.preview_image | image_url: width: 2000 }}" aria-label="{{ 'product.zoom' | t }}">{{ media.preview_image | image_url: width: 1200 | image_tag: loading: load, sizes: '(min-width:750px) 50vw, 100vw', alt: alt }}</button>
+              {%- when 'external_video' -%}{{ media | external_video_tag }}
+              {%- when 'video' -%}{{ media | video_tag: controls: true, image_size: '1100x' }}
+              {%- when 'model' -%}{{ media | model_viewer_tag }}
+              {%- else -%}{{ media | media_tag }}
+            {%- endcase -%}
+          </div>
+        {%- else -%}
+          <div class="gallery-slide is-active">{% render 'art', v: 1, label: product.title %}</div>
+        {%- endfor -%}
+        {%- if pct > 0 -%}<div class="badges"><span class="badge sale" data-sale-badge>-{{ pct }}%</span></div>{%- endif -%}
+      </div>
+      {%- if product.media.size > 1 -%}
+        <div class="gallery-thumbs">{%- for media in product.media -%}<button type="button" class="thumb{% if forloop.first %} is-active{% endif %}" data-thumb="{{ forloop.index0 }}" aria-label="{{ forloop.index }}">{{ media.preview_image | image_url: width: 200 | image_tag: loading: 'lazy', alt: '' }}</button>{%- endfor -%}</div>
+      {%- endif -%}
+    </div>
+
+    <div class="product-info">
+      {%- if product.vendor != blank -%}<p class="muted">{{ product.vendor }}</p>{%- endif -%}
+      <h1>{{ product.title }}</h1>
+      {%- if rating != blank -%}<p class="rating"><span class="stars">★</span> {{ rating.rating | round: 1 }}{% if product.metafields.reviews.rating_count != blank %} <small>({{ product.metafields.reviews.rating_count }})</small>{% endif %}</p>{%- endif -%}
+      <div class="price price-lg" data-price>
+        <span class="price-now{% if pct > 0 %} sale{% endif %}" data-now>{{ current.price | money }}</span>
+        <s class="price-compare" data-compare{% unless pct > 0 %} hidden{% endunless %}>{{ current.compare_at_price | money }}</s>
+        <span class="save" data-save{% unless pct > 0 %} hidden{% endunless %}>{{ 'product.save' | t }} {{ pct }}%</span>
+      </div>
+      {%- if current.unit_price_measurement -%}<p class="muted">{{ current.unit_price | money }} / {% if current.unit_price_measurement.reference_value != 1 %}{{ current.unit_price_measurement.reference_value }}{% endif %}{{ current.unit_price_measurement.reference_unit }}</p>{%- endif -%}
+      {%- if cart.taxes_included or shop.shipping_policy.body != blank -%}<p class="muted tax-note">{%- if cart.taxes_included -%}{{ 'product.tax_included' | t }} {%- endif -%}{%- if shop.shipping_policy.body != blank -%}<a href="{{ shop.shipping_policy.url }}">{{ 'product.shipping_link' | t }}</a>{%- endif -%}</p>{%- endif -%}
+      <p class="stock" data-stock></p>
+
+      {%- form 'product', product, id: 'product-form', class: 'form', data-ajax-add: 'true' -%}
+        <input type="hidden" name="id" value="{{ current.id }}" data-variant-id>
+        {%- unless product.has_only_default_variant -%}
+          {%- for option in product.options_with_values -%}
+            <fieldset class="opt" data-option="{{ forloop.index0 }}">
+              <legend>{{ option.name }}: <span data-opt-label>{{ option.selected_value }}</span></legend>
+              <div class="opt-values">
+                {%- for value in option.values -%}
+                  <label class="opt-v{% if value.swatch %} is-swatch{% endif %}"{% if value.swatch.color %} style="--sw:{{ value.swatch.color }}"{% endif %}>
+                    <input type="radio" name="option-{{ option.position }}" value="{{ value | escape }}" {% if value.selected %}checked{% endif %}>
+                    {%- if value.swatch.image -%}<span class="sw-img">{{ value.swatch.image | image_url: width: 80 | image_tag: alt: value }}</span>
+                    {%- elsif value.swatch.color -%}<span class="sw" title="{{ value | escape }}"></span>
+                    {%- else -%}<span class="opt-text">{{ value }}</span>{%- endif -%}
+                  </label>
+                {%- endfor -%}
+              </div>
+            </fieldset>
+          {%- endfor -%}
+        {%- endunless -%}
+        <label for="qty">{{ 'product.quantity' | t }}</label>
+        <div class="qty"><button type="button" data-qty-minus aria-label="-">−</button><input id="qty" type="number" name="quantity" value="1" min="1" inputmode="numeric"><button type="button" data-qty-plus aria-label="+">+</button></div>
+        <button type="submit" name="add" class="btn btn-block" data-add {% unless current.available %}disabled{% endunless %}><span data-add-label>{% if current.available %}{{ 'product.add_to_cart' | t }}{% else %}{{ 'general.sold_out' | t }}{% endif %}</span></button>
+        {%- if section.settings.show_dynamic_checkout -%}{{ form | payment_button }}{%- endif -%}
+      {%- endform -%}
+
+      <div data-notify {% if current.available %}hidden{% endif %}>
+        {%- form 'contact', class: 'form notify' -%}
+          {%- if form.posted_successfully? -%}<p class="ok">{{ 'contact.success' | t }}</p>{%- endif -%}
+          <p><strong>{{ 'product.notify' | t }}</strong></p>
+          <input type="hidden" name="contact[body]" value="Back in stock request: {{ product.title }} - {{ shop.url }}{{ product.url }}">
+          <input type="email" name="contact[email]" placeholder="{{ 'general.email_placeholder' | t }}" aria-label="{{ 'customer.email' | t }}" required>
+          <button class="btn btn-ghost" type="submit">{{ 'product.notify_btn' | t }}</button>
+        {%- endform -%}
+      </div>
+
+      <div class="actions-row">
+        <button type="button" class="link-btn" data-wish="{{ product.handle }}" aria-pressed="false">{% render 'icon', name: 'heart', size: 18 %} <span>{{ 'wishlist.add' | t }}</span></button>
+        {%- if section.settings.show_share -%}<button type="button" class="link-btn" data-share data-title="{{ product.title | escape }}" data-url="{{ shop.url }}{{ product.url }}">{% render 'icon', name: 'share', size: 18 %} <span>{{ 'product.share' | t }}</span></button>{%- endif -%}
+      </div>
+
+      {%- if section.settings.delivery_note != blank -%}<p class="delivery">{% render 'icon', name: 'truck', size: 18 %} {{ section.settings.delivery_note }}</p>{%- endif -%}
+      {%- if section.settings.mf_key != blank -%}
+        {%- assign mf = product.metafields[section.settings.mf_ns][section.settings.mf_key] -%}
+        {%- if mf != blank -%}<p><strong>{{ section.settings.mf_label }}:</strong> {{ mf }}</p>{%- endif -%}
+      {%- endif -%}
+      {%- if section.settings.show_sku -%}<p class="muted meta">{{ 'product.sku' | t }}: <span data-sku>{{ current.sku }}</span>{% if product.type != blank %} · {{ product.type }}{% endif %}</p>{%- endif -%}
+
+      <div class="accs">
+        {%- if product.description != blank -%}<details class="acc" open><summary>{{ 'product.description' | t }}</summary><div class="rte">{{ product.description }}</div></details>{%- endif -%}
+        {%- for block in section.blocks -%}<details class="acc" {{ block.shopify_attributes }}><summary>{{ block.settings.title }}</summary><div class="rte">{{ block.settings.page.content }}{{ block.settings.text }}</div></details>{%- endfor -%}
+      </div>
+    </div>
+  </div>
+
+  <div class="sticky-atc" data-sticky-atc hidden><div class="container sticky-in"><span class="sticky-title">{{ product.title }}</span><span class="sticky-price" data-sticky-price>{{ current.price | money }}</span><button type="button" class="btn" data-sticky-btn>{{ 'product.add_to_cart' | t }}</button></div></div>
+  <div class="lightbox" data-lightbox hidden><button type="button" class="icon-btn lb-close" data-lb-close aria-label="{{ 'general.close' | t }}">{% render 'icon', name: 'close', size: 28 %}</button><img data-lb-img alt=""></div>
+
+  <script type="application/json" data-variants>[{% for v in product.variants %}{"id":{{ v.id }},"options":{{ v.options | json }},"available":{{ v.available }},"price":{{ v.price | money | json }},"compare":{{ v.compare_at_price | money | json }},"pct":{% if v.compare_at_price > v.price %}{{ v.compare_at_price | minus: v.price | times: 100 | divided_by: v.compare_at_price }}{% else %}0{% endif %},"sku":{{ v.sku | json }},"qty":{{ v.inventory_quantity | default: 0 }},"managed":{% if v.inventory_management %}true{% else %}false{% endif %},"media":{% if v.featured_media %}{{ v.featured_media.position | minus: 1 }}{% else %}-1{% endif %}}{% unless forloop.last %},{% endunless %}{% endfor %}]</script>
+  <script type="application/ld+json">{{ product | structured_data }}</script>
+</section>
+{% schema %}
+{"name":"Product","settings":[
+  {"type":"checkbox","id":"show_dynamic_checkout","label":"Dynamic checkout buttons (Apple Pay, etc.)","default":false},
+  {"type":"checkbox","id":"show_sku","label":"Show SKU and type","default":true},
+  {"type":"checkbox","id":"show_share","label":"Share button","default":true},
+  {"type":"range","id":"low_stock","min":1,"max":20,"step":1,"label":"'Only X left' below","default":5},
+  {"type":"text","id":"delivery_note","label":"Delivery note","default":"Ships within 2 business days"},
+  {"type":"header","content":"Custom metafield (optional)"},
+  {"type":"text","id":"mf_ns","label":"Namespace","default":"custom"},{"type":"text","id":"mf_key","label":"Key"},{"type":"text","id":"mf_label","label":"Label","default":"Details"}],
+ "blocks":[{"type":"tab","name":"Info tab","settings":[{"type":"text","id":"title","label":"Title","default":"Shipping & returns"},{"type":"page","id":"page","label":"Content from page"},{"type":"richtext","id":"text","label":"Or text"}]}]}
+{% endschema %}

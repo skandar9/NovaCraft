@@ -1,0 +1,14 @@
+{%- assign has_active = false -%}
+{%- for filter in filters -%}
+  {%- if filter.active_values.size > 0 -%}{%- assign has_active = true -%}{%- endif -%}
+  {%- if filter.type == 'price_range' and filter.min_value.value != blank or filter.max_value.value != blank -%}{%- assign has_active = true -%}{%- endif -%}
+{%- endfor -%}
+{%- if has_active -%}
+<div class="chips">
+  {%- for filter in filters -%}
+    {%- for value in filter.active_values -%}<a class="chip" href="{{ value.url_to_remove }}">{{ value.label }} ✕</a>{%- endfor -%}
+    {%- if filter.type == 'price_range' and filter.min_value.value != blank or filter.max_value.value != blank -%}<a class="chip" href="{{ filter.url_to_remove }}">{{ filter.label }} ✕</a>{%- endif -%}
+  {%- endfor -%}
+  <a class="chip clear" href="{{ base_url }}">{{ 'collection.clear' | t }}</a>
+</div>
+{%- endif -%}

@@ -1,0 +1,37 @@
+<section class="container section">
+  <header class="page-head">
+    <h1>{{ 'customer.welcome' | t: name: customer.first_name }}</h1>
+    <a href="{{ routes.account_logout_url }}">{{ 'customer.logout' | t }}</a>
+  </header>
+  <nav class="tabs" aria-label="Account">
+    <a href="#orders" class="is-active">{{ 'customer.orders' | t }}</a>
+    <a href="{{ routes.account_addresses_url }}">{{ 'customer.addresses' | t }}</a>
+    <a href="#details">{{ 'customer.details' | t }}</a>
+  </nav>
+
+  {%- paginate customer.orders by 20 -%}
+  <div id="orders" class="panel">
+    <h2>{{ 'customer.orders' | t }}</h2>
+    {%- if customer.orders.size == 0 -%}<p>{{ 'customer.no_orders' | t }}</p>
+    {%- else -%}
+    <div class="table-wrap"><table class="cart-table">
+      <thead><tr><th>{{ 'customer.order_number' | t }}</th><th>{{ 'customer.date' | t }}</th><th>{{ 'customer.payment' | t }}</th><th>{{ 'customer.fulfillment' | t }}</th><th>{{ 'cart.total' | t }}</th></tr></thead>
+      <tbody>{%- for order in customer.orders -%}
+        <tr><td><a href="{{ order.customer_url }}">{{ order.name }}</a></td><td>{{ order.created_at | date: '%Y-%m-%d' }}</td><td>{{ order.financial_status_label }}</td><td>{{ order.fulfillment_status_label }}</td><td>{{ order.total_price | money }}</td></tr>
+      {%- endfor -%}</tbody>
+    </table></div>
+    {%- endif -%}
+    {% render 'pagination', paginate: paginate %}
+  </div>
+  {%- endpaginate -%}
+
+  <div id="details" class="panel">
+    <h2>{{ 'customer.details' | t }}</h2>
+    <p><strong>{{ customer.name }}</strong><br>{{ customer.email }}</p>
+    {%- if customer.default_address -%}<address>{{ customer.default_address | format_address }}</address>{%- endif -%}
+    <p><a href="{{ routes.account_addresses_url }}">{{ 'customer.manage_addresses' | t }}</a></p>
+  </div>
+</section>
+{% schema %}
+{"name":"Account"}
+{% endschema %}

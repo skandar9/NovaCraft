@@ -1,0 +1,36 @@
+<script src="{{ 'shopify_common.js' | shopify_asset_url }}" defer></script>
+<section class="container section">
+  <header class="page-head"><h1>{{ 'customer.addresses' | t }}</h1><a href="{{ routes.account_url }}">{{ 'customer.back_to_account' | t }}</a></header>
+
+  {%- paginate customer.addresses by 6 -%}
+  <div class="grid grid-3">
+    {%- for address in customer.addresses -%}
+      <div class="panel">
+        {%- if address == customer.default_address -%}<p class="badge-inline">{{ 'customer.default_address' | t }}</p>{%- endif -%}
+        <address>{{ address | format_address }}</address>
+        <details>
+          <summary class="link">{{ 'customer.edit' | t }}</summary>
+          {%- form 'customer_address', address, class: 'form' -%}
+            {% render 'address-fields', address: address, form: form, uid: address.id %}
+            <button class="btn" type="submit">{{ 'customer.save' | t }}</button>
+          {%- endform -%}
+        </details>
+        <button type="button" class="link" data-delete-address="{{ address.url }}" data-confirm="{{ 'customer.confirm_delete' | t }}">{{ 'customer.delete' | t }}</button>
+      </div>
+    {%- endfor -%}
+  </div>
+  {% render 'pagination', paginate: paginate %}
+  {%- endpaginate -%}
+
+  <div class="panel narrow">
+    <h2>{{ 'customer.add_address' | t }}</h2>
+    {%- form 'customer_address', customer.new_address, class: 'form' -%}
+      {{ form.errors | default_errors }}
+      {% render 'address-fields', address: form, form: form, uid: 'new' %}
+      <button class="btn" type="submit">{{ 'customer.save' | t }}</button>
+    {%- endform -%}
+  </div>
+</section>
+{% schema %}
+{"name":"Addresses"}
+{% endschema %}

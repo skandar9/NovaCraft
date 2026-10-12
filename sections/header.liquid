@@ -1,0 +1,72 @@
+<header class="site-header">
+  <div class="container header-inner">
+    <button class="icon-btn menu-toggle" type="button" aria-label="{{ 'general.menu' | t }}" aria-expanded="false" data-menu-toggle>{% render 'icon', name: 'menu', size: 24 %}</button>
+    <a class="logo" href="{{ routes.root_url }}">
+      {%- if section.settings.logo != blank -%}{{ section.settings.logo | image_url: width: 400 | image_tag: loading: 'eager', alt: shop.name, width: section.settings.logo_width }}
+      {%- else -%}<span class="logo-text">{{ shop.name }}</span>{%- endif -%}
+    </a>
+    <nav class="main-nav" data-nav aria-label="Main">
+      <ul>
+        {%- for link in linklists[section.settings.menu].links -%}
+          {%- assign is_mega = false -%}
+          {%- for child in link.links -%}{%- if child.links.size > 0 -%}{%- assign is_mega = true -%}{%- endif -%}{%- endfor -%}
+          <li class="{% if link.links.size > 0 %}has-sub{% endif %}{% if is_mega %} mega{% endif %}">
+            <a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title }}</a>
+            {%- if link.links.size > 0 -%}
+              <div class="sub"><ul class="sub-cols">
+                {%- for child in link.links -%}
+                  <li><a class="sub-title" href="{{ child.url }}">{{ child.title }}</a>
+                    {%- if child.links.size > 0 -%}<ul>{%- for g in child.links -%}<li><a href="{{ g.url }}">{{ g.title }}</a></li>{%- endfor -%}</ul>{%- endif -%}
+                  </li>
+                {%- endfor -%}
+              </ul></div>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    </nav>
+    <div class="header-tools">
+      {%- if settings.show_country and localization.available_countries.size > 1 -%}
+        {%- form 'localization', class: 'loc-form', id: 'loc-header' -%}
+          <select name="country_code" aria-label="{{ 'general.country' | t }}" data-auto-submit>
+            {%- for country in localization.available_countries -%}<option value="{{ country.iso_code }}" {% if country.iso_code == localization.country.iso_code %}selected{% endif %}>{{ country.name }} ({{ country.currency.iso_code }})</option>{%- endfor -%}
+          </select>
+        {%- endform -%}
+      {%- endif -%}
+      {%- if settings.show_language and localization.available_languages.size > 1 -%}
+        {%- form 'localization', class: 'lang-form', id: 'lang-header' -%}
+          {%- for language in localization.available_languages -%}
+            {%- unless language.iso_code == localization.language.iso_code -%}
+              <button type="submit" class="lang-btn" name="language_code" value="{{ language.iso_code }}" lang="{{ language.iso_code }}" aria-label="{{ language.endonym_name | escape }}" title="{{ language.endonym_name | escape }}">{{ language.iso_code | split: '-' | first | upcase }}</button>
+            {%- endunless -%}
+          {%- endfor -%}
+        {%- endform -%}
+      {%- endif -%}
+      <button type="button" class="icon-btn" data-search-open aria-label="{{ 'general.search' | t }}">{% render 'icon', name: 'search' %}</button>
+      {%- if settings.show_wishlist -%}
+        <a class="icon-btn wish-link" href="{{ section.settings.wishlist_page.url | default: '/pages/wishlist' }}" aria-label="{{ 'wishlist.title' | t }}">{% render 'icon', name: 'heart' %}<span class="cart-count" data-wish-count hidden>0</span></a>
+      {%- endif -%}
+{%- if shop.customer_accounts_enabled -%}
+  {%- if customer -%}
+    {%- assign initial_source = customer.first_name | default: customer.name | default: customer.email -%}
+    <a class="icon-btn" href="{{ routes.account_url }}" aria-label="{{ 'general.account' | t }}"><span class="avatar">{{ initial_source | strip | slice: 0 | upcase }}</span></a>
+  {%- else -%}
+    <a class="icon-btn" href="/customer_authentication/login?return_to={{ routes.root_url | url_encode }}" aria-label="{{ 'general.account' | t }}">{% render 'icon', name: 'user' %}</a>
+  {%- endif -%}
+{%- endif -%}
+      <a class="icon-btn cart-link" href="{{ routes.cart_url }}" aria-label="{{ 'general.cart' | t }}" data-cart-open>{% render 'icon', name: 'cart' %}<span class="cart-count" data-cart-count{% if cart.item_count == 0 %} hidden{% endif %}>{{ cart.item_count }}</span></a>
+    </div>
+  </div>
+</header>
+{% stylesheet %}
+.icon-btn .avatar{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;background:var(--accent);color:var(--accent-text);font-family:var(--font-heading);font-weight:700;font-size:.95rem;line-height:1;box-shadow:0 0 0 2px var(--bg),0 0 0 3px var(--accent);transition:background .2s}
+.icon-btn:hover .avatar{background:var(--deep)}
+{% endstylesheet %}
+{% schema %}
+{"name":"Header","settings":[
+  {"type":"image_picker","id":"logo","label":"Logo"},
+  {"type":"range","id":"logo_width","min":60,"max":260,"step":10,"unit":"px","label":"Logo width","default":140},
+  {"type":"link_list","id":"menu","label":"Menu","default":"main-menu","info":"3-level menus become a mega menu automatically"},
+  {"type":"page","id":"wishlist_page","label":"Wishlist page"}
+]}
+{% endschema %}

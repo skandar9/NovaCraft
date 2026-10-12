@@ -1,0 +1,25 @@
+<section class="container section">
+  <header class="page-head"><h1>{{ 'customer.order_number' | t }} {{ order.name }}</h1><p class="muted">{{ order.created_at | date: '%Y-%m-%d' }}</p></header>
+  <div class="table-wrap"><table class="cart-table">
+    <thead><tr><th>{{ 'cart.product' | t }}</th><th>{{ 'cart.price' | t }}</th><th>{{ 'product.quantity' | t }}</th><th>{{ 'cart.total' | t }}</th></tr></thead>
+    <tbody>
+      {%- for line in order.line_items -%}
+        <tr><td>{{ line.title }}</td><td>{{ line.final_price | money }}</td><td>{{ line.quantity }}</td><td>{{ line.final_line_price | money }}</td></tr>
+      {%- endfor -%}
+    </tbody>
+    <tfoot>
+      <tr><td colspan="3">{{ 'cart.subtotal' | t }}</td><td>{{ order.line_items_subtotal_price | money }}</td></tr>
+      {%- for sl in order.shipping_methods -%}<tr><td colspan="3">{{ sl.title }}</td><td>{{ sl.price | money }}</td></tr>{%- endfor -%}
+      <tr><td colspan="3"><strong>{{ 'cart.total' | t }}</strong></td><td><strong>{{ order.total_price | money }}</strong></td></tr>
+    </tfoot>
+  </table></div>
+  <div class="grid grid-3">
+    <div><h3>{{ 'customer.payment' | t }}</h3><p>{{ order.financial_status_label }}</p></div>
+    <div><h3>{{ 'customer.fulfillment' | t }}</h3><p>{{ order.fulfillment_status_label }}</p></div>
+    <div><h3>{{ 'customer.shipping_address' | t }}</h3><address>{{ order.shipping_address | format_address }}</address></div>
+  </div>
+  <p><a href="{{ routes.account_url }}">{{ 'customer.back_to_account' | t }}</a></p>
+</section>
+{% schema %}
+{"name":"Order"}
+{% endschema %}

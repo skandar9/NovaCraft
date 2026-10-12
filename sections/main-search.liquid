@@ -1,0 +1,37 @@
+{%- paginate search.results by 24 -%}
+{%- assign sort_by = search.sort_by | default: 'relevance' -%}
+<section class="container section">
+  <header class="page-head">
+    <h1>{{ 'search.title' | t }}</h1>
+    <form action="{{ routes.search_url }}" method="get" role="search" class="inline-field search-form"><input type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'search.placeholder' | t }}" aria-label="{{ 'general.search' | t }}"><input type="hidden" name="options[prefix]" value="last"><button class="btn" type="submit">{{ 'general.search' | t }}</button></form>
+  </header>
+  {%- if search.performed -%}
+    {%- if search.results_count == 0 -%}<p class="center">{{ 'search.no_results' | t: terms: search.terms }}</p>
+    {%- else -%}
+      <div class="toolbar">
+        {%- if search.filters.size > 0 -%}<button type="button" class="btn btn-ghost filter-open" data-filters-open>{% render 'icon', name: 'filter', size: 18 %} {{ 'collection.filters' | t }}</button>{%- endif -%}
+        <p class="muted">{{ 'search.results' | t: count: search.results_count, terms: search.terms }}</p>
+        <div class="toolbar-right"><label for="sort" class="sr">{{ 'collection.sort' | t }}</label>
+          <select id="sort" name="sort_by" form="filters" data-auto-submit>{%- for option in search.sort_options -%}<option value="{{ option.value }}" {% if option.value == sort_by %}selected{% endif %}>{{ option.name }}</option>{%- endfor -%}</select></div>
+      </div>
+      {% render 'active-filters', filters: search.filters, base_url: search.url %}
+      <div class="coll-layout{% if search.filters.size == 0 %} no-filters{% endif %}">
+        {%- if search.filters.size > 0 -%}<aside class="filters-wrap" data-filters-wrap>{% render 'filters', filters: search.filters, base_url: search.url, terms: search.terms %}</aside><div class="filters-backdrop" data-filters-close></div>
+        {%- else -%}<form id="filters" method="get"><input type="hidden" name="q" value="{{ search.terms | escape }}"></form>{%- endif -%}
+        <div class="coll-results">
+          <div class="pgrid">
+            {%- for item in search.results -%}
+              {%- if item.object_type == 'product' -%}{% render 'product-card', product: item %}
+              {%- else -%}<article class="card card-text"><div class="card-info"><p class="muted">{{ item.object_type | capitalize }}</p><h3 class="card-title"><a href="{{ item.url }}">{{ item.title }}</a></h3></div></article>{%- endif -%}
+            {%- endfor -%}
+          </div>
+          {% render 'pagination', paginate: paginate %}
+        </div>
+      </div>
+    {%- endif -%}
+  {%- endif -%}
+</section>
+{%- endpaginate -%}
+{% schema %}
+{"name":"Search"}
+{% endschema %}

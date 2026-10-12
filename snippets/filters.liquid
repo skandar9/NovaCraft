@@ -1,0 +1,23 @@
+<form id="filters" class="filters" method="get" data-filter-form>
+  {%- if terms != blank -%}<input type="hidden" name="q" value="{{ terms | escape }}"><input type="hidden" name="options[prefix]" value="last">{%- endif -%}
+  <div class="filters-head"><h2>{{ 'collection.filters' | t }}</h2><button type="button" class="icon-btn" data-filters-close aria-label="{{ 'general.close' | t }}">{% render 'icon', name: 'close' %}</button></div>
+  {%- for filter in filters -%}
+    <details class="f-group" {% if forloop.index <= 3 %}open{% endif %}>
+      <summary>{{ filter.label }}</summary>
+      {%- if filter.type == 'price_range' -%}
+        <div class="f-price">
+          <input type="number" name="{{ filter.min_value.param_name }}" min="0" step="any" inputmode="decimal" placeholder="0" value="{% if filter.min_value.value %}{{ filter.min_value.value | divided_by: 100.0 }}{% endif %}" aria-label="min">
+          <span>–</span>
+          <input type="number" name="{{ filter.max_value.param_name }}" min="0" step="any" inputmode="decimal" placeholder="{{ filter.range_max | divided_by: 100.0 | ceil }}" value="{% if filter.max_value.value %}{{ filter.max_value.value | divided_by: 100.0 }}{% endif %}" aria-label="max">
+        </div>
+      {%- else -%}
+        <ul class="f-list">
+          {%- for value in filter.values -%}
+            <li><label class="check"><input type="checkbox" name="{{ value.param_name }}" value="{{ value.value }}" {% if value.active %}checked{% endif %} {% if value.count == 0 and value.active == false %}disabled{% endif %}> <span>{{ value.label }}</span> <small>({{ value.count }})</small></label></li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </details>
+  {%- endfor -%}
+  <div class="filters-foot"><button class="btn btn-block" type="submit">{{ 'collection.apply' | t }}</button><a class="btn btn-ghost btn-block" href="{{ base_url }}">{{ 'collection.clear' | t }}</a></div>
+</form>

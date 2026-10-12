@@ -1,0 +1,8 @@
+<div class="price">
+  {%- if product.compare_at_price > product.price -%}
+    <span class="price-now sale">{% if product.price_varies %}{{ 'general.from' | t }} {% endif %}{{ product.price | money }}</span>
+    <s class="price-compare">{{ product.compare_at_price | money }}</s>
+  {%- else -%}
+    <span class="price-now">{% if product.price_varies %}{{ 'general.from' | t }} {% endif %}{{ product.price | money }}</span>
+  {%- endif -%}
+</div>
